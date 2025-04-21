@@ -5,6 +5,6 @@ import retrofit2.http.GET;
 
 public interface AreaService {
 
-    @GET("/json/v1/1/list.php?a=list")
+    @GET("json/v1/1/list.php?a=list")
     Call<AreaResponse> getAllAreas();
 }

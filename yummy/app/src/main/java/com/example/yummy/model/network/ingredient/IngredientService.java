@@ -5,7 +5,7 @@ import retrofit2.http.GET;
 
 public interface IngredientService {
 
-    @GET("/json/v1/1/list.php?i=list")
+    @GET("json/v1/1/list.php?i=list")
     Call<IngredientResponse> getAllIng();
 
 }
