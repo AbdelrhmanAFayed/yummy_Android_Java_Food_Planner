@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "248935884868",
+    "project_id": "yummy-87527",
+    "storage_bucket": "yummy-87527.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248935884868:android:c15133ce58869e3faff411",
+        "android_client_info": {
+          "package_name": "com.example.yummy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248935884868-akv10f9km47rqm8nkmt4qvrf9mte6qrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR0fzFiJqZkcIvvIP_TqP48NoeYsHlwTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248935884868-akv10f9km47rqm8nkmt4qvrf9mte6qrl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
