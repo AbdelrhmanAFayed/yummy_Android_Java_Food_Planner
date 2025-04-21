@@ -12,7 +12,6 @@ public class MealShortRemoteDataSourceImp implements MealShortRemoteDataSource{
     private MealShortService service = null ;
     private static MealShortRemoteDataSourceImp client = null ;
 
-    Call<MealShort> call ;
 
 
     private MealShortRemoteDataSourceImp() {
