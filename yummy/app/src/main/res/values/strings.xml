@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">yummy</string>
+    <string name="home">Home</string>
+    <string name="exp">Explore\n</string>
+    <string name="search">Search</string>
+    <string name="fav">Favourites</string>
+    <string name="cal">Calendar</string>
+    <string name="acc">Account</string>
 </resources>
