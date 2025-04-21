@@ -10,14 +10,14 @@ import retrofit2.http.Query;
 public interface MealShortService {
 
 
-    @GET("api/json/v1/1/filter.php?c={cat}")
-    Call<MealShortResponse> getMealsByCategory(@Path("cat") String category);
+    @GET("json/v1/1/filter.php")
+    Call<MealShortResponse> getMealsByCategory(@Query("c") String category);
 
-    @GET("api/json/v1/1/filter.php?i={ing}")
-    Call<MealShortResponse> getMealsByIng(@Path("ing") String ing);
+    @GET("json/v1/1/filter.php")
+    Call<MealShortResponse> getMealsByIng(@Query("i") String ing);
 
-    @GET("api/json/v1/1/filter.php?a={area}")
-    Call<MealShortResponse> getMealsByArea(@Path("area") String area);
+    @GET("json/v1/1/filter.php")
+    Call<MealShortResponse> getMealsByArea(@Query("a") String area);
 
 
 }
