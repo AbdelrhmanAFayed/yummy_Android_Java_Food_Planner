@@ -30,51 +30,7 @@ public class OnBoarding extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
-        FirebaseApp.initializeApp(this);
-
-//        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-//            startSignInFlow();
-//        } else {
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        }
 
     }
 
-//    private void startSignInFlow() {
-//        List<AuthUI.IdpConfig> providers = Arrays.asList(
-//                new AuthUI.IdpConfig.GoogleBuilder().build()
-//        );
-//
-//        Intent signInIntent = AuthUI.getInstance()
-//                .createSignInIntentBuilder()
-//                .setAvailableProviders(providers)
-//                .build();
-//
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == RC_SIGN_IN) {
-//            IdpResponse response = IdpResponse.fromResultIntent(data);
-//
-//            if (resultCode == RESULT_OK) {
-//
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//            } else {
-//
-//                if (response == null) {
-//
-//                    finish();
-//                } else {
-//
-//                }
-//            }
-//        }
-//    }
-//
 }
