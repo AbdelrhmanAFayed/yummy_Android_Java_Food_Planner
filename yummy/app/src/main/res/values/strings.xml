@@ -9,4 +9,6 @@
     <string name="default_web_client_id">248935884868-akv10f9km47rqm8nkmt4qvrf9mte6qrl.apps.googleusercontent.com</string>
     <string name="welcome">Welcome to Yummy!</string>
     <string name="guest">Continue as Guest</string>
+    <string name="sign">Sign-In</string>
+    <string name="siup">Sign-Up</string>
 </resources>

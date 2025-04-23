@@ -1,18 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="Base.Theme.Yummy" parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="colorPrimary">@color/orange</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-
-        <item name="colorSecondary">@color/orange_dark</item>
-        <item name="colorOnSecondary">@color/white</item>
-
-
-        <item name="colorSurface">@color/orange</item>
-        <item name="colorOnSurface">@color/white</item>
+    <style name="Base.Theme.Yummy." parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#F44708</item>
+        <item name="colorPrimaryVariant">#A10702</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#688E26</item>
     </style>
-
-    <style name="Theme.Yummy" parent="Base.Theme.Yummy" />
 </resources>
