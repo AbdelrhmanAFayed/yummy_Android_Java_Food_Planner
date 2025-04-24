@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange">#FF9800</color>
-    <color name="orange_dark">#F57C00</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary_orange">#F44708</color>
+    <color name="accent_orange">#FAA613</color>
+    <color name="olive_green">#688E26</color>
+    <color name="dark_red">#A10702</color>
+    <color name="dark_purple">#550527</color>
 </resources>

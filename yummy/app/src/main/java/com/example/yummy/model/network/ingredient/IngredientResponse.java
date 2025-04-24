@@ -1,6 +1,6 @@
 package com.example.yummy.model.network.ingredient;
 
-import com.example.yummy.model.Ingredient;
+import com.example.yummy.model.ingredient.Ingredient;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

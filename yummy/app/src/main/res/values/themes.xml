@@ -5,5 +5,7 @@
         <item name="colorPrimaryVariant">#A10702</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorSecondary">#688E26</item>
+        <item name="android:statusBarColor">@color/dark_purple</item>
+        <item name="android:navigationBarColor">@color/dark_purple</item>
     </style>
 </resources>

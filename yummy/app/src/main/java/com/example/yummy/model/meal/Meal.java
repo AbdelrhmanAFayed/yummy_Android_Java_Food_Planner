@@ -1,6 +1,4 @@
-package com.example.yummy.model;
-
-import com.google.gson.annotations.SerializedName;
+package com.example.yummy.model.meal;
 
 import java.util.List;
 

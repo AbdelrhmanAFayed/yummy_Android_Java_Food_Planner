@@ -2,20 +2,36 @@ package com.example.yummy.main.view.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.yummy.R;
+import com.example.yummy.model.ingredient.IngredientRepository;
+import com.example.yummy.model.ingredient.IngredientRepositoryImp;
+import com.example.yummy.model.meal.MealRepository;
+import com.example.yummy.model.meal.MealRepositoryImp;
+import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
+import com.example.yummy.model.network.ingredient.IngredientResponse;
+import com.example.yummy.model.network.meal.MealNetWorkCallBack;
+import com.example.yummy.model.network.meal.MealResponse;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNetWorkCallBack {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +41,20 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button btn_ref ;
+    ImageView randImg ;
+
+    TextView mealTitle ;
+    TextView mealDesc ;
+
+    MealRepository mealRepository;
+    IngredientRepository ingredientRepository ;
+
+    private RecyclerView recyclerView;
+    private SubIngredientAdapter adapter;
+    LinearLayoutManager manager ;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -55,6 +85,11 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        mealRepository = MealRepositoryImp.getInstance();
+        ingredientRepository = IngredientRepositoryImp.getInstance();
+
+
     }
 
     @Override
@@ -62,5 +97,94 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        randImg = view.findViewById(R.id.randImg);
+
+        mealTitle = view.findViewById(R.id.randTitle);
+
+        mealDesc = view.findViewById(R.id.randDesc);
+
+        recyclerView = view.findViewById(R.id.recyclerIng);
+
+
+
+
+
+
+
+
+        mealRepository.getRandom(this);
+
+        ingredientRepository.getIngredients(this);
+
+
+
+
+    }
+
+    @Override
+    public void onDaySuccessResult(MealResponse mealResponse) {
+
+        mealTitle.setText(mealResponse.meals.get(0).getStrMeal());
+        mealDesc.setText(mealResponse.meals.get(0).getStrInstructions().substring(0,50) + ".....");
+
+        Glide.with(getContext()).load(mealResponse.meals.get(0).getStrMealThumb() + "/large")
+                .into(randImg);
+
+    }
+
+    @Override
+    public void onDayFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onNameSuccessResult(MealResponse mealResponse) {
+
+    }
+
+    @Override
+    public void onNameFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onIDSuccessResult(MealResponse mealResponse) {
+
+    }
+
+    @Override
+    public void onIDFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onLetterSuccessResult(MealResponse mealResponse) {
+
+    }
+
+    @Override
+    public void onLetterFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onSuccessResult(IngredientResponse ingredientResponse) {
+
+        manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        adapter = new SubIngredientAdapter(getContext(), ingredientResponse.getIngredients());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(manager);
+
+    }
+
+    @Override
+    public void onFailureResult(String error) {
+
     }
 }

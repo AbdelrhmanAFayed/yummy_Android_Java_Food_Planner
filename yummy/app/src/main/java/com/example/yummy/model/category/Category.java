@@ -1,6 +1,4 @@
-package com.example.yummy.model;
-
-import java.util.List;
+package com.example.yummy.model.category;
 
 public class Category {
 

@@ -1,9 +1,6 @@
 package com.example.yummy.model.network.meal;
 
-import com.example.yummy.model.Meal;
 import com.example.yummy.model.network.RemoteDataSource;
-import com.example.yummy.model.network.mealshort.MealShortRemoteDataSourceImp;
-import com.example.yummy.model.network.mealshort.MealShortService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

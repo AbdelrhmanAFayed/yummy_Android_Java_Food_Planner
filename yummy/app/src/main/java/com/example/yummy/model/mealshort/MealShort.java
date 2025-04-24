@@ -1,4 +1,4 @@
-package com.example.yummy.model;
+package com.example.yummy.model.mealshort;
 
 public class MealShort {
 

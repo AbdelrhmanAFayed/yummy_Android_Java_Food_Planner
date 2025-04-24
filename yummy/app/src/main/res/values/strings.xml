@@ -17,4 +17,9 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Log Out</string>
+    <string name="surprise">Surprise Me!</string>
+    <string name="ref">Refresh</string>
+    <string name="sug">Suggested Meal</string>
+    <string name="viewbycat" />
 </resources>

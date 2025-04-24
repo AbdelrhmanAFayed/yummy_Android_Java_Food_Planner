@@ -13,7 +13,7 @@ import com.example.yummy.onboarding.view.OnBoarding;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static final int SPLASH_DURATION_MS = 2500;
+    private static final int SPLASH_DURATION_MS = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

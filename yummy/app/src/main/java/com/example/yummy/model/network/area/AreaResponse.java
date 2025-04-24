@@ -1,6 +1,6 @@
 package com.example.yummy.model.network.area;
 
-import com.example.yummy.model.Area;
+import com.example.yummy.model.area.Area;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

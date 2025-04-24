@@ -1,6 +1,6 @@
 package com.example.yummy.model.network.mealshort;
 
-import com.example.yummy.model.MealShort;
+import com.example.yummy.model.mealshort.MealShort;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
