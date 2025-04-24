@@ -14,7 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.yummy.R;
+import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.onboarding.BoardingContract;
+import com.example.yummy.splash.view.SplashScreen;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
@@ -52,12 +54,13 @@ public class OnBoarding extends AppCompatActivity {
         textEmail = findViewById(R.id.editTextEmail);
         textPass = findViewById(R.id.editTextPass);
 
-        presenter.fireBaseinit();
+        // presenter.fireBaseinit();
 
         btn_guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.guestListnr();
+                startActivity(new Intent(OnBoarding.this, MainActivity.class));
+                finish();
 
             }
         });

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.yummy.main.view.fragments.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.yummy.main.view.fragments.SearchFragment"
+        android:label="Search" />
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.example.yummy.main.view.fragments.FavFragment"
+        android:label="Favorites" />
+
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="com.example.yummy.main.view.fragments.CalFragment"
+        android:label="Calendar" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.example.yummy.main.view.fragments.AccountFragment"
+        android:label="Account" />
+</navigation>
