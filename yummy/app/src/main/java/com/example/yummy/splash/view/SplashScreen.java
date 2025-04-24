@@ -5,11 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
@@ -17,8 +13,7 @@ import com.example.yummy.onboarding.view.OnBoarding;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static final int SPLASH_DURATION_MS = 5000; // Duration to show splash
-
+    private static final int SPLASH_DURATION_MS = 2500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
