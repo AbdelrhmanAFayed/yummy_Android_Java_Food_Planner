@@ -8,20 +8,27 @@
     android:background="@color/accent_orange"
     tools:context=".details.view.DetailedMeal">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:padding="16dp">
 
+        <!-- Image and FloatingActionButton -->
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/imgFrame"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            app:layout_constraintWidth_percent="1.0"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
                 android:id="@+id/mainImg"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/ic_launcher_foreground" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,62 +38,90 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:background="@color/olive_green"
-                android:clickable="true"
-                app:srcCompat="@drawable/baseline_star_24" />
+                app:srcCompat="@drawable/baseline_star_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </FrameLayout>
 
+        <!-- Title -->
         <TextView
             android:id="@+id/textTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textColor="@android:color/black"
-            android:textSize="34sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintTop_toBottomOf="@id/imgFrame"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
 
+        <!-- Area -->
         <TextView
             android:id="@+id/textArea"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Area"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@id/textTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
 
+        <!-- Ingredients -->
         <TextView
             android:id="@+id/textIng"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredients"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@id/textArea"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerIng"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textIng"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
             tools:listitem="@layout/item_meal" />
 
+        <!-- Instructions Title -->
         <TextView
             android:id="@+id/textInstruct"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Instructions"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@id/recyclerIng"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
 
+        <!-- Instructions Content -->
         <TextView
             android:id="@+id/textSubIns"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@android:color/black" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintTop_toBottomOf="@id/textInstruct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
 
+        <!-- WebView for YouTube embed -->
         <WebView
             android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@id/textSubIns"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        </WebView>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

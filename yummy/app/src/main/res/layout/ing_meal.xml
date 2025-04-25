@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:src="@android:color/darker_gray" /> <!-- Placeholder color instead of drawable -->
 
     <TextView
         android:id="@+id/subTitle"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sunImg" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textmeasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"

@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
 import com.example.yummy.details.view.DetailedMeal;
-import com.example.yummy.main.view.MainActivity;
+import com.example.yummy.main.view.fragments.adapters.SubCategoryAdapter;
+import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
 import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
@@ -34,7 +34,6 @@ import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealResponse;
-import com.example.yummy.onboarding.view.OnBoarding;
 import com.google.gson.Gson;
 
 /**

@@ -5,7 +5,18 @@ public class Ingredient {
     private String idIngredient;
     private String strIngredient;
     private String strDescription;
+
     private String strType;
+
+    public String getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(String measurement) {
+        this.measurement = measurement;
+    }
+
+    private String measurement;
 
     public String getIdIngredient() {
         return idIngredient;

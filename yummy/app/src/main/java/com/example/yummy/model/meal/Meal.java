@@ -1,5 +1,9 @@
 package com.example.yummy.model.meal;
 
+import com.example.yummy.model.ingredient.Ingredient;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Meal {
@@ -60,69 +64,38 @@ public class Meal {
     private String strCreativeCommonsConfirmed;
     private String dateModified;
 
-    /*My Attributes*/
-
-    private List<String> ingredientList;
-    private List<String> measurementList;
 
 
+    public List<Ingredient> getIngredientsWithMeasurements() {
+        List<Ingredient> ingredients = new ArrayList<>();
 
-    public void fillIngredientList() {
-        if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredientList.add(strIngredient1);
-        if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredientList.add(strIngredient2);
-        if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredientList.add(strIngredient3);
-        if (strIngredient4 != null && !strIngredient4.isEmpty()) ingredientList.add(strIngredient4);
-        if (strIngredient5 != null && !strIngredient5.isEmpty()) ingredientList.add(strIngredient5);
-        if (strIngredient6 != null && !strIngredient6.isEmpty()) ingredientList.add(strIngredient6);
-        if (strIngredient7 != null && !strIngredient7.isEmpty()) ingredientList.add(strIngredient7);
-        if (strIngredient8 != null && !strIngredient8.isEmpty()) ingredientList.add(strIngredient8);
-        if (strIngredient9 != null && !strIngredient9.isEmpty()) ingredientList.add(strIngredient9);
-        if (strIngredient10 != null && !strIngredient10.isEmpty()) ingredientList.add(strIngredient10);
-        if (strIngredient11 != null && !strIngredient11.isEmpty()) ingredientList.add(strIngredient11);
-        if (strIngredient12 != null && !strIngredient12.isEmpty()) ingredientList.add(strIngredient12);
-        if (strIngredient13 != null && !strIngredient13.isEmpty()) ingredientList.add(strIngredient13);
-        if (strIngredient14 != null && !strIngredient14.isEmpty()) ingredientList.add(strIngredient14);
-        if (strIngredient15 != null && !strIngredient15.isEmpty()) ingredientList.add(strIngredient15);
-        if (strIngredient16 != null && !strIngredient16.isEmpty()) ingredientList.add(strIngredient16);
-        if (strIngredient17 != null && !strIngredient17.isEmpty()) ingredientList.add(strIngredient17);
-        if (strIngredient18 != null && !strIngredient18.isEmpty()) ingredientList.add(strIngredient18);
-        if (strIngredient19 != null && !strIngredient19.isEmpty()) ingredientList.add(strIngredient19);
-        if (strIngredient20 != null && !strIngredient20.isEmpty()) ingredientList.add(strIngredient20);
-    }
+        for (int i = 1; i <= 20; i++) {
+            try {
+                // Use reflection to access fields dynamically
+                Field ingredientField = this.getClass().getDeclaredField("strIngredient" + i);
+                Field measureField = this.getClass().getDeclaredField("strMeasure" + i);
+                ingredientField.setAccessible(true);
+                measureField.setAccessible(true);
 
+                String ingredientValue = (String) ingredientField.get(this);
+                String measureValue = (String) measureField.get(this);
 
-    public void fillMeasurementList() {
-        if (strMeasure1 != null && !strMeasure1.isEmpty()) measurementList.add(strMeasure1);
-        if (strMeasure2 != null && !strMeasure2.isEmpty()) measurementList.add(strMeasure2);
-        if (strMeasure3 != null && !strMeasure3.isEmpty()) measurementList.add(strMeasure3);
-        if (strMeasure4 != null && !strMeasure4.isEmpty()) measurementList.add(strMeasure4);
-        if (strMeasure5 != null && !strMeasure5.isEmpty()) measurementList.add(strMeasure5);
-        if (strMeasure6 != null && !strMeasure6.isEmpty()) measurementList.add(strMeasure6);
-        if (strMeasure7 != null && !strMeasure7.isEmpty()) measurementList.add(strMeasure7);
-        if (strMeasure8 != null && !strMeasure8.isEmpty()) measurementList.add(strMeasure8);
-        if (strMeasure9 != null && !strMeasure9.isEmpty()) measurementList.add(strMeasure9);
-        if (strMeasure10 != null && !strMeasure10.isEmpty()) measurementList.add(strMeasure10);
-        if (strMeasure11 != null && !strMeasure11.isEmpty()) measurementList.add(strMeasure11);
-        if (strMeasure12 != null && !strMeasure12.isEmpty()) measurementList.add(strMeasure12);
-        if (strMeasure13 != null && !strMeasure13.isEmpty()) measurementList.add(strMeasure13);
-        if (strMeasure14 != null && !strMeasure14.isEmpty()) measurementList.add(strMeasure14);
-        if (strMeasure15 != null && !strMeasure15.isEmpty()) measurementList.add(strMeasure15);
-        if (strMeasure16 != null && !strMeasure16.isEmpty()) measurementList.add(strMeasure16);
-        if (strMeasure17 != null && !strMeasure17.isEmpty()) measurementList.add(strMeasure17);
-        if (strMeasure18 != null && !strMeasure18.isEmpty()) measurementList.add(strMeasure18);
-        if (strMeasure19 != null && !strMeasure19.isEmpty()) measurementList.add(strMeasure19);
-        if (strMeasure20 != null && !strMeasure20.isEmpty()) measurementList.add(strMeasure20);
+                if (ingredientValue != null && !ingredientValue.trim().isEmpty()) {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.setStrIngredient(ingredientValue);
+                    ingredient.setMeasurement(measureValue);
+                    ingredients.add(ingredient);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return ingredients;
     }
 
 
 
-    public List<String> getIngredientList() {
-        return ingredientList;
-    }
-
-    public List<String> getMeasurementList() {
-        return measurementList;
-    }
 
 
 

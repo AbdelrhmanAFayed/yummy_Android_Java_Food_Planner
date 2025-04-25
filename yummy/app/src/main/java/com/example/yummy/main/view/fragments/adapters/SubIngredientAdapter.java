@@ -1,4 +1,4 @@
-package com.example.yummy.main.view.fragments;
+package com.example.yummy.main.view.fragments.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
-import com.example.yummy.model.area.Area;
 import com.example.yummy.model.ingredient.Ingredient;
 
 import java.util.List;
