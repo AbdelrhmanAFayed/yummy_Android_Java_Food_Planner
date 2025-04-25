@@ -58,6 +58,9 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
     TextView mealTitle ;
     TextView mealDesc ;
 
+    Button btn_Surprise ;
+
+
     MealRepository mealRepository;
     IngredientRepository ingredientRepository ;
 
@@ -129,7 +132,17 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
 
         catRecyclerView = view.findViewById(R.id.recyclerCat);
 
+        btn_Surprise =view.findViewById(R.id.btn_Surprise);
 
+        btn_Surprise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mealRepository.getRandom(HomeFragment.this);
+
+
+            }
+        });
 
 
 
