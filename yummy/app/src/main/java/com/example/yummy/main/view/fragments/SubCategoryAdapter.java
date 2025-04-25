@@ -10,20 +10,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.yummy.R;
-import com.example.yummy.model.area.Area;
+import com.example.yummy.model.category.Category;
+import com.example.yummy.model.ingredient.Ingredient;
 
 import java.util.List;
 
 
-public class SubAreaAdapter extends RecyclerView.Adapter<SubAreaAdapter.ViewHolder> {
+public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<Area> items;
+    private final List<Category> items;
 
-    public SubAreaAdapter(Context context, List<Area> items) {
+
+
+    public SubCategoryAdapter(Context context, List<Category> items) {
         this.context = context;
         this.items = items;
+
+
+
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -31,11 +39,13 @@ public class SubAreaAdapter extends RecyclerView.Adapter<SubAreaAdapter.ViewHold
         TextView title ;
         ImageView img ;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.subTitle);
             img = itemView.findViewById(R.id.sunImg);
+
         }
     }
 
@@ -49,7 +59,11 @@ public class SubAreaAdapter extends RecyclerView.Adapter<SubAreaAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Bind your data from items.get(position)
+
+        Glide.with(context).load(items.get(position).getStrCategoryThumb()).circleCrop().into(holder.img);
+
+        holder.title.setText(items.get(position).getStrCategory());
+
     }
 
     @Override

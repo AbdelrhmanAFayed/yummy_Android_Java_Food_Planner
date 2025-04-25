@@ -1,6 +1,10 @@
 package com.example.yummy.details.view;
 
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +12,53 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.yummy.R;
+import com.example.yummy.model.meal.Meal;
+import com.google.gson.Gson;
 
 public class DetailedMeal extends AppCompatActivity {
+
+    Button btn_add ;
+    ImageView imageView ;
+
+    TextView textTitle ;
+    TextView textArea ;
+
+    TextView textSubIns ;
+
+    WebView webView ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_meal);
+
+        String json = getIntent().getStringExtra("meal");
+
+        Meal meal = new Gson().fromJson(json, Meal.class);
+
+        textTitle = findViewById(R.id.textTitle);
+        textSubIns = findViewById(R.id.textSubIns);
+        textArea = findViewById(R.id.textArea);
+
+        imageView = findViewById(R.id.mainImg);
+
+        webView = findViewById(R.id.webview);
+
+        textTitle.setText(meal.getStrMeal());
+        textArea.setText(meal.getStrArea());
+
+        textSubIns.setText(meal.getStrInstructions());
+
+        Glide.with(this).load(meal.getStrMealThumb() + "/large")
+                .into(imageView);
+
+        // webView.loadData("<iframe width=\"100%\" height=\"100%\" src=" + meal.getStrYoutube() + "frameborder=\"0\" allowfullscreen></iframe>","text/html","utf-8");
+
+
+
 
     }
 }
