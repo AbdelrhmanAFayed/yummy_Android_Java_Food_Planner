@@ -2,20 +2,34 @@ package com.example.yummy.onboarding;
 
 public interface BoardingContract {
 
-    public interface View
-    {
-        public void guestMode();
-        public void signedMode();
+    interface View {
+        String getEmail();
+        String getPassword();
+        void showSignInSuccess();
+        void showSignUpSuccess();
+        void showSignInError(String errorMessage);
+        void showSignUpError(String errorMessage);
+        void startGoogleSignInFlow();
+        void showGoogleSignInError(String errorMessage);
+        void onGoogleSignInSuccess();
+        void onGoogleSignInFailure(String errorMessage);
+        void showAnonymousSignInSuccess();
+        void showAnonymousSignInError(String errorMessage);
+        void navigateToHomeScreen();
+        void showLoadingIndicator(boolean show);
 
+        void promptForUsername();
+        void onUsernameSaved();               // new callback
+        void onUsernameSaveError(String err);
+        void saveUsernameLocally(String username);
     }
-    public interface Presenter
-    {
-        public void fireBaseinit();
 
-        public void signInListnr();
-        public void signUpListnr();
-        public void googleListnr();
-        public void guestListnr();
-
+    interface Presenter {
+        void handleSignInButtonClick();
+        void handleSignUpButtonClick();
+        void handleGoogleSignInButtonClick();
+        void handleGoogleSignInResult(String idToken);
+        void handleAnonymousSignInButtonClick();
+        void handleUsernameChosen(String username);
     }
 }

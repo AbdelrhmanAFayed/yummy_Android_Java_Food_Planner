@@ -74,6 +74,9 @@ dependencies {
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
     implementation("com.firebaseui:firebase-ui-auth:9.0.0")
+    implementation("androidx.credentials:credentials:1.1.3")
+    implementation("androidx.credentials:credentials-play-services-auth:1.1.3")
+
 
     implementation("com.google.android.material:material:1.11.0")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.0")
@@ -81,6 +84,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    implementation ("com.google.firebase:firebase-database:20.2.2")
 
 
 }
