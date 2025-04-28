@@ -10,50 +10,55 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Image and FloatingActionButton -->
-        <FrameLayout
+        <!-- Image and FloatingActionButton inside CardView for nice rounded edges -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/imgFrame"
             android:layout_width="0dp"
-            android:layout_height="300dp"
-            app:layout_constraintWidth_percent="1.0"
-            app:layout_constraintHeight_percent="0.3"
+            android:layout_height="250dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
-                android:id="@+id/mainImg"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:srcCompat="@mipmap/ic_launcher_foreground" />
+                android:layout_height="match_parent">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_add"
-                style="@style/Base.Theme.Yummy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:background="@color/olive_green"
-                app:srcCompat="@drawable/baseline_star_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/mainImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@mipmap/ic_launcher_foreground" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="16dp"
+                    app:backgroundTint="@color/olive_green"
+                    app:srcCompat="@drawable/baseline_star_24" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Title -->
         <TextView
             android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/imgFrame"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="16dp" />
 
         <!-- Area -->
         <TextView
@@ -61,24 +66,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Area"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintTop_toBottomOf="@id/textTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
-        <!-- Ingredients -->
+        <!-- Ingredients Title -->
         <TextView
             android:id="@+id/textIng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredients"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/textArea"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="24dp" />
 
+        <!-- Ingredients RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerIng"
             android:layout_width="0dp"
@@ -87,6 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
+            android:layout_marginTop="8dp"
             tools:listitem="@layout/item_meal" />
 
         <!-- Instructions Title -->
@@ -95,34 +102,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Instructions"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/recyclerIng"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="24dp" />
 
         <!-- Instructions Content -->
         <TextView
             android:id="@+id/textSubIns"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="#5D4037"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/textInstruct"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInstruct" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- WebView for YouTube embed -->
+        <!-- WebView for YouTube -->
         <WebView
             android:id="@+id/webview"
             android:layout_width="0dp"
-            android:layout_height="300dp"
-            app:layout_constraintTop_toBottomOf="@id/textSubIns"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textSubIns" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

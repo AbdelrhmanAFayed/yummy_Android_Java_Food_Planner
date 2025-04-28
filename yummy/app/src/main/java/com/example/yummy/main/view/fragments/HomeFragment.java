@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
@@ -27,7 +26,6 @@ import com.example.yummy.main.view.fragments.adapters.SubCategoryAdapter;
 import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
 import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
-import com.example.yummy.model.db.MealLocalDataSourceImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
 import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
@@ -62,7 +60,7 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
     RecyclerView ingRecyclerView ;
     RecyclerView catRecyclerView ;
 
-    String json ;
+    String mealJson;
 
 
     @Override
@@ -78,7 +76,7 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("meal_json", json);
+        outState.putString("meal_json", mealJson);
     }
 
     @Override
@@ -134,7 +132,7 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
             public void onClick(View v) {
 
                 Intent intent = new Intent(getContext(), DetailedMeal.class);
-                intent.putExtra("meal", json);
+                intent.putExtra("meal", HomeFragment.this.mealJson);
                 startActivity(intent);
 
             }
@@ -156,10 +154,10 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
 
         Gson gson = new Gson();
 
-        json = gson.toJson(mealResponse.meals.get(0));
+        mealJson = gson.toJson(mealResponse.meals.get(0));
         SharedPreferences prefs = getContext().getSharedPreferences("MealPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("meal_json", json);
+        editor.putString("meal_json", mealJson);
         editor.apply();
 
 
