@@ -27,6 +27,7 @@ import com.example.yummy.main.view.fragments.adapters.SubCategoryAdapter;
 import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
 import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
+import com.example.yummy.model.db.MealLocalDataSourceImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
 import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
@@ -68,7 +69,7 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mealRepository = MealRepositoryImp.getInstance();
+        mealRepository = MealRepositoryImp.getInstance(getContext());
         ingredientRepository = IngredientRepositoryImp.getInstance();
         categoryRepository = CategoryRepositoryImp.getInstance();
 

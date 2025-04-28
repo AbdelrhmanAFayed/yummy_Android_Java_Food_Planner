@@ -1,5 +1,7 @@
 package com.example.yummy.model.db;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.yummy.model.meal.Meal;
@@ -10,8 +12,18 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
 
     private final MealDAO mealDAO;
 
-    public MealLocalDataSourceImp(MealDAO mealDAO) {
-        this.mealDAO = mealDAO;
+    private static MealLocalDataSourceImp localDataSourceImp = null ;
+
+    private MealLocalDataSourceImp(Context context) {
+        this.mealDAO = AppDataBase.getInstance(context).getMealDao();
+    }
+
+    public static MealLocalDataSourceImp getInstance(Context context) {
+        if(localDataSourceImp == null)
+        {
+            localDataSourceImp = new MealLocalDataSourceImp(context);
+        }
+        return localDataSourceImp;
     }
 
 

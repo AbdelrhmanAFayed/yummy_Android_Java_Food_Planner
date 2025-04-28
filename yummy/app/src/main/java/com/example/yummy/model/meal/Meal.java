@@ -1,5 +1,7 @@
 package com.example.yummy.model.meal;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,8 +17,8 @@ public class Meal {
 
     /*JSON Attributes*/
 
-    @PrimaryKey
-    private String idMeal;
+    @PrimaryKey @NonNull
+    private String idMeal = "0";
 
     private String strMeal;
     private String strMealAlternate;

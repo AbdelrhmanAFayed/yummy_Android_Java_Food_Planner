@@ -1,8 +1,11 @@
 package com.example.yummy.model.meal;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.yummy.model.db.MealLocalDataSource;
+import com.example.yummy.model.db.MealLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealRemoteDataSource;
 import com.example.yummy.model.network.meal.MealRemoteDataSourceImp;
@@ -22,9 +25,9 @@ public class MealRepositoryImp implements MealRepository{
     private static MealRepositoryImp repo = null ;
 
 
-    public static MealRepositoryImp getInstance(MealLocalDataSource localDataSource) {
+    public static MealRepositoryImp getInstance(Context context) {
         if (repo == null) {
-            repo = new MealRepositoryImp(MealRemoteDataSourceImp.getInstance(), localDataSource);
+            repo = new MealRepositoryImp(MealRemoteDataSourceImp.getInstance(), MealLocalDataSourceImp.getInstance(context));
         }
         return repo;
     }
