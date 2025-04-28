@@ -1,16 +1,23 @@
 package com.example.yummy.model.meal;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.yummy.model.ingredient.Ingredient;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity(tableName = "meals")
 public class Meal {
 
     /*JSON Attributes*/
 
+    @PrimaryKey
     private String idMeal;
+
     private String strMeal;
     private String strMealAlternate;
     private String strCategory;
