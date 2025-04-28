@@ -9,6 +9,6 @@ public interface DetailedContract {
 
     public interface Presenter
     {
-        
+
     }
 }
