@@ -1,6 +1,8 @@
 package com.example.yummy.main.view.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
@@ -26,6 +29,7 @@ import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
 import com.example.yummy.model.ingredient.IngredientRepositoryImp;
+import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepository;
 import com.example.yummy.model.meal.MealRepositoryImp;
 import com.example.yummy.model.network.category.CatNetWorkCallBack;
@@ -60,7 +64,6 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
     String json ;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,12 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
         ingredientRepository = IngredientRepositoryImp.getInstance();
         categoryRepository = CategoryRepositoryImp.getInstance();
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("meal_json", json);
     }
 
     @Override
@@ -103,12 +112,17 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
             }
         });
 
+        SharedPreferences prefs = getContext().getSharedPreferences("MealPrefs", Context.MODE_PRIVATE);
+        String mealJson = prefs.getString("meal_json", null);
+        if (mealJson != null) {
+            Meal meal = new Gson().fromJson(mealJson, Meal.class);
+            mealTitle.setText(meal.getStrMeal());
+            mealDesc.setText(meal.getStrInstructions().substring(0, 50) + ".....");
+            Glide.with(getContext()).load(meal.getStrMealThumb() + "/large").into(randImg);
+        } else {
+            mealRepository.getRandom(this);
+        }
 
-
-
-
-
-        mealRepository.getRandom(this);
 
         ingredientRepository.getIngredients(this);
 
@@ -142,6 +156,10 @@ public class HomeFragment extends Fragment implements MealNetWorkCallBack, IngNe
         Gson gson = new Gson();
 
         json = gson.toJson(mealResponse.meals.get(0));
+        SharedPreferences prefs = getContext().getSharedPreferences("MealPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("meal_json", json);
+        editor.apply();
 
 
 

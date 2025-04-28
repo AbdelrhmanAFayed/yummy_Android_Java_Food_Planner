@@ -1,129 +1,157 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <!-- Header Card -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/primary_orange"
+            app:shapeAppearance="@style/ShapeAppearance.Medium">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:text="@string/sug"
-                android:textColor="@android:color/black"
-                android:textSize="34sp" />
-
-            <Button
-                android:id="@+id/btn_Surprise"
-                style="@android:style/Widget.Holo.Light.Button.Inset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/surprise" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#BA000000">
-
-            <ImageView
-                android:id="@+id/randImg"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@mipmap/ic_launcher_foreground" />
-
-            <TextView
-                android:id="@+id/randTitle"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|start"
-                android:layout_margin="16dp"
-                android:text="Title"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/randDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|start"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
-                android:text="Instructions"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </FrameLayout>
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Suggestions"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_Surprise"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_Surprise"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="Surprise"
+                    android:textColor="@color/olive_green"
+                    app:strokeColor="@color/olive_green"
+                    app:strokeWidth="2dp"
+                    app:backgroundTint="@android:color/transparent"
+                    app:iconTint="@color/olive_green"
+                    app:icon="@android:drawable/stat_notify_sync"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Featured Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/accent_orange"
+            app:shapeAppearance="@style/ShapeAppearance.Medium">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/randImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher_foreground"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/bottom_gradient"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/randTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Title"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    app:layout_constraintBottom_toTopOf="@+id/randDesc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/randDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Instructions"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- View By Category -->
         <TextView
             android:id="@+id/sectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
             android:text="View By Category"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/primary_orange"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCat"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_meal"/>
 
-            tools:listitem="@layout/item_meal" />
-
+        <!-- View By Ingredient -->
         <TextView
             android:id="@+id/sectionTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="View By Main Ingredient"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="24dp"
+            android:text="View By Ingredient"
+            android:textColor="@color/primary_orange"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerIng"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:clipToPadding="false"
             android:orientation="horizontal"
-            tools:listitem="@layout/item_meal" />
-
-
-        <TextView
-            android:id="@+id/sectionTitle3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="View By Country"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/recyclerCat"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal"-->
-
-        <!--            tools:listitem="@layout/item_meal" />-->
-
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_meal"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

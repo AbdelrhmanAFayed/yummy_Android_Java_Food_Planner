@@ -13,6 +13,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class BoardingPresenter implements BoardingContract.Presenter {
@@ -51,6 +52,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                             if(task.isSuccessful())
                             {
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                getUsernameFromDatabase();
                                 view.showSignInSuccess();
                             }
                             else
@@ -111,10 +113,15 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                     if (isNew) {
                         view.promptForUsername();
                     } else {
+                        getUsernameFromDatabase();
                         view.onGoogleSignInSuccess();
                     }
                 });
+
+
     }
+
+
 
 
     @Override
@@ -128,6 +135,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                         view.showLoadingIndicator(false);
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            handleUsernameChosen("Anonymous");
                             view.showAnonymousSignInSuccess();
                         } else {
                             view.showAnonymousSignInError(task.getException().getMessage());
@@ -154,6 +162,31 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                     view.onUsernameSaveError(e.getMessage());
                 });
     }
+
+    public void getUsernameFromDatabase() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+
+            dbRef.child("username").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String username = task.getResult().getValue(String.class);
+                    if (username != null) {
+
+                        view.saveUsernameLocally(username);
+                    } else {
+                        Log.d("BoardingPresenter", "Username is not set");
+                    }
+                } else {
+                    Log.e("BoardingPresenter", "Error fetching username", task.getException());
+                }
+            });
+        } else {
+            Log.d("BoardingPresenter", "No user is signed in");
+        }
+    }
+
 
 
     private void onSignUpComplete(@NonNull Task<AuthResult> task) {

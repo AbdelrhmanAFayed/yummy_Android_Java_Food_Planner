@@ -1,5 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Material 3 Core Colors -->
+    <color name="primary">#6750A4</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#EADDFF</color>
+    <color name="outline">#79747E</color>
+    <color name="surface">#FFFBFE</color>
+    <color name="on_surface">#1C1B1F</color>
+
     <color name="primary_orange">#F44708</color>
     <color name="accent_orange">#FAA613</color>
     <color name="olive_green">#688E26</color>

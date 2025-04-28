@@ -1,6 +1,7 @@
 package com.example.yummy.main.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.yummy.R;
+import com.example.yummy.onboarding.view.OnBoarding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AccountFragment extends Fragment {
@@ -53,6 +55,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), OnBoarding.class));
                 getActivity().finish();
             }
         });
