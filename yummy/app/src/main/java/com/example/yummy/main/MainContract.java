@@ -15,6 +15,8 @@ public interface MainContract {
         void showCategories(CategoryResponse categoryResponse);
         void showHomeError(String message);
         void openMealDetails(Meal meal);
+        void saveMeal(Meal meal);
+        Meal loadMeal();
     }
 
     interface HomePresenter {
