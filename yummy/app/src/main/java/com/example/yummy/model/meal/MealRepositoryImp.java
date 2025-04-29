@@ -76,17 +76,27 @@ public class MealRepositoryImp implements MealRepository{
     }
 
     @Override
-    public Meal getMealByIDLocal(String ID) {
+    public LiveData<Meal> getMealByIDLocal(String ID) {
         return localDataSource.getMealByID(ID);
     }
 
     @Override
-    public void insertMealLocal(Meal meal) {
-        localDataSource.insertMeal(meal);
+    public void insertMealLocal(final Meal meal) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                localDataSource.insertMeal(meal);
+            }
+        }).start();
     }
 
     @Override
-    public void deleteMealLocal(Meal meal) {
-        localDataSource.deleteMeal(meal);
+    public void deleteMealLocal(final Meal meal) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                localDataSource.deleteMeal(meal);
+            }
+        }).start();
     }
 }

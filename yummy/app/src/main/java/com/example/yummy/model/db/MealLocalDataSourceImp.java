@@ -38,7 +38,7 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
         return mealDAO.getMealsByName(name);    }
 
     @Override
-    public Meal getMealByID(String iD) {
+    public LiveData<Meal> getMealByID(String iD) {
         return mealDAO.getMealById(iD);    }
 
     @Override

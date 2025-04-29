@@ -21,7 +21,7 @@ public interface MealRepository {
 
     LiveData<List<Meal>> getAllMealsLocal();
     LiveData<List<Meal>> getMealsByNameLocal(String name);
-    Meal getMealByIDLocal(String ID);
+    LiveData<Meal> getMealByIDLocal(String ID);
     void insertMealLocal(Meal meal);
     void deleteMealLocal(Meal meal);
 

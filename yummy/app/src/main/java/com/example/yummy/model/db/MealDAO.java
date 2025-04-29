@@ -25,7 +25,7 @@ public interface MealDAO {
     void delete(Meal meal);
 
     @Query("SELECT * FROM meals WHERE idMeal = :idMeal LIMIT 1")
-    Meal getMealById(String idMeal);
+    LiveData<Meal> getMealById(String idMeal);
 
     @Query("SELECT * FROM meals WHERE strMeal LIKE :mealName")
     LiveData<List<Meal>> getMealsByName(String mealName);

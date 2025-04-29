@@ -12,7 +12,7 @@ public interface MealLocalDataSource {
 
     LiveData<List<Meal>> getMealsByName(String name);
 
-    Meal getMealByID(String iD);
+    LiveData<Meal> getMealByID(String iD);
 
     void insertMeal( Meal meal);
 
