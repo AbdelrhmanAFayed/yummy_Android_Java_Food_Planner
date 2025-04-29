@@ -36,7 +36,7 @@
             android:exported="false" />
         <activity
             android:name=".onboarding.view.OnBoarding"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

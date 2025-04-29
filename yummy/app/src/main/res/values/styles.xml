@@ -14,6 +14,16 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="Widget.Yummy.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+
+
+
+
     <!-- Card Style -->
     <style name="Card.Medium" parent="Widget.Material3.CardView.Elevated">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Medium</item>
