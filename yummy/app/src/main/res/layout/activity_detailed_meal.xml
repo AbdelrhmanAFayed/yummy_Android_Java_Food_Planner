@@ -42,8 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="16dp"
-                    app:backgroundTint="@color/olive_green"
-                    app:srcCompat="@drawable/baseline_star_24" />
+                    app:backgroundTint="@color/dark_red"
+                    app:srcCompat="@android:drawable/ic_input_add" />
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
 

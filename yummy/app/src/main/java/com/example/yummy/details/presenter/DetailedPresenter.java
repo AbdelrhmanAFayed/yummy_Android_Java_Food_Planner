@@ -1,5 +1,8 @@
 package com.example.yummy.details.presenter;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
 import com.example.yummy.details.DetailedContract;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepository;
@@ -36,16 +39,21 @@ public class DetailedPresenter implements DetailedContract.Presenter , MealNetWo
 
     @Override
     public void checkIfFavorite(String mealId) {
-        Meal localMeal = repository.getMealByIDLocal(mealId);
-        boolean isFavorite = localMeal != null;
-        view.updateFavoriteState(isFavorite);
+        LiveData<Meal> localMealLiveData = repository.getMealByIDLocal(mealId);
+        localMealLiveData.observeForever(new Observer<Meal>() {
+            @Override
+            public void onChanged(Meal meal) {
+                boolean isFavorite = meal != null;
+                view.updateFavoriteState(isFavorite);
+            }
+        });
     }
 
     @Override
     public void loadMealFromIntent(String mealJson) {
         Meal meal = new Gson().fromJson(mealJson, Meal.class);
         view.showMealDetails(meal);
-        checkIfFavorite(meal.getIdMeal());
+       checkIfFavorite(meal.getIdMeal());
 
     }
 
