@@ -22,11 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
+import com.example.yummy.details.DetailedContract;
 import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
 import com.example.yummy.model.meal.Meal;
 import com.google.gson.Gson;
 
-public class DetailedMeal extends AppCompatActivity {
+public class DetailedMeal extends AppCompatActivity implements DetailedContract.View {
 
     Button btn_add ;
     ImageView imageView ;
@@ -92,6 +93,22 @@ public class DetailedMeal extends AppCompatActivity {
         ingRecyclerView.setLayoutManager(manager);
 
 
+
+    }
+
+
+    @Override
+    public void showMealDetails(Meal meal) {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void updateFavoriteState(boolean isFav) {
 
     }
 

@@ -31,6 +31,9 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
         this.mealRepository = mealRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+
+        currentMeal = view.loadMeal();
+
     }
 
     @Override

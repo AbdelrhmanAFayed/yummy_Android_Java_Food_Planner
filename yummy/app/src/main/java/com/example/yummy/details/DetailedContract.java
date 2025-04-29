@@ -1,14 +1,20 @@
 package com.example.yummy.details;
 
+import com.example.yummy.model.meal.Meal;
+
 public interface DetailedContract {
 
-    public interface View
-    {
-
+    interface View {
+        void showMealDetails(Meal meal);
+        void showError(String message);
+        void updateFavoriteState(boolean isFav);
     }
 
-    public interface Presenter
-    {
-
+    interface Presenter {
+        void getMealDetails(String mealId);
+        void addToFavorites(Meal meal);
+        void removeFromFavorites(Meal meal);
+        void checkIfFavorite(String mealId);
+        void loadMealFromIntent(String mealJson);
     }
 }
