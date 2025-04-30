@@ -26,7 +26,10 @@ import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.HomePresenter;
 import com.example.yummy.main.view.fragments.adapters.SubCategoryAdapter;
+import com.example.yummy.main.view.fragments.adapters.SubCountryAdapter;
 import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
+import com.example.yummy.model.area.AreaRepository;
+import com.example.yummy.model.area.AreaRepositoryImp;
 import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
@@ -34,12 +37,15 @@ import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepository;
 import com.example.yummy.model.meal.MealRepositoryImp;
+import com.example.yummy.model.mealshort.MealShortRepositoryImp;
+import com.example.yummy.model.network.area.AreaResponse;
 import com.example.yummy.model.network.category.CatNetWorkCallBack;
 import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealResponse;
+import com.example.yummy.model.network.mealshort.MealShortResponse;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
@@ -50,9 +56,10 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
 
     private ImageView randImg;
     private TextView mealTitle, mealDesc;
-    private RecyclerView ingRecyclerView, catRecyclerView;
+    private RecyclerView ingRecyclerView, catRecyclerView, countryRecyclerView;;
     private MaterialButton btnSurprise;
 
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +67,11 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
 
         presenter = new HomePresenter(
                 this,
-                MealRepositoryImp.getInstance(getContext()),
-                IngredientRepositoryImp.getInstance(),
-                CategoryRepositoryImp.getInstance()
+                MealRepositoryImp.getInstance(getContext())
+                ,IngredientRepositoryImp.getInstance()
+                ,CategoryRepositoryImp.getInstance()
+                ,AreaRepositoryImp.getInstance()
+                ,MealShortRepositoryImp.getInstance()
         );
     }
 
@@ -77,6 +86,7 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
         ingRecyclerView = view.findViewById(R.id.recyclerIng);
         catRecyclerView = view.findViewById(R.id.recyclerCat);
         btnSurprise = view.findViewById(R.id.btn_Surprise);
+        countryRecyclerView = view.findViewById(R.id.recyclerCountry);
 
         return view;
     }
@@ -98,6 +108,7 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
 
         presenter.getIngredients();
         presenter.getCategories();
+        presenter.getCountries();
 
 
         btnSurprise.setOnClickListener(new View.OnClickListener() {
@@ -183,4 +194,15 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
         }
         return null;
     }
+
+    @Override
+    public void showCountries(AreaResponse areaResponse) {
+        SubCountryAdapter adapter = new SubCountryAdapter(requireContext(), areaResponse.getAreas());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        countryRecyclerView.setLayoutManager(layoutManager);
+        countryRecyclerView.setAdapter(adapter);
+    }
+
+
+
 }

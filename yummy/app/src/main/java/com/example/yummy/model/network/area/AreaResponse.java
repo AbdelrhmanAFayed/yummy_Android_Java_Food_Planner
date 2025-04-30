@@ -9,4 +9,8 @@ public class AreaResponse {
 
     @SerializedName("meals")
     List<Area> areas ;
+
+    public List<Area> getAreas() {
+        return areas;
+    }
 }

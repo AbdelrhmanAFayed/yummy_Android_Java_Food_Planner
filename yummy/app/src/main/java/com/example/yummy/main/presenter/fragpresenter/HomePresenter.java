@@ -1,6 +1,7 @@
 package com.example.yummy.main.presenter.fragpresenter;
 
 import com.example.yummy.main.MainContract;
+import com.example.yummy.model.area.AreaRepository;
 import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
 import com.example.yummy.model.ingredient.IngredientRepository;
@@ -8,33 +9,45 @@ import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepository;
 import com.example.yummy.model.meal.MealRepositoryImp;
+import com.example.yummy.model.mealshort.MealShortRepository;
+import com.example.yummy.model.network.area.AreaNetWorkCallBack;
+import com.example.yummy.model.network.area.AreaResponse;
 import com.example.yummy.model.network.category.CatNetWorkCallBack;
 import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealResponse;
+import com.example.yummy.model.network.mealshort.MealShortNetWorkCallBack;
+import com.example.yummy.model.network.mealshort.MealShortResponse;
 
-public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCallBack, IngNetWorkCallBack, CatNetWorkCallBack {
+public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCallBack, IngNetWorkCallBack, CatNetWorkCallBack, AreaNetWorkCallBack, MealShortNetWorkCallBack {
 
     private MainContract.HomeView view;
+
     private MealRepository mealRepository;
+    private MealShortRepository mealShortRepository ;
     private IngredientRepository ingredientRepository;
     private CategoryRepository categoryRepository;
-    private Meal currentMeal;
+    private AreaRepository areaRepository;
 
+    private Meal currentMeal;
     public HomePresenter(MainContract.HomeView view,
                          MealRepository mealRepository,
                          IngredientRepository ingredientRepository,
-                         CategoryRepository categoryRepository) {
+                         CategoryRepository categoryRepository,
+                         AreaRepository areaRepository,
+                         MealShortRepository mealShortRepository) {
         this.view = view;
         this.mealRepository = mealRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+        this.areaRepository = areaRepository;
+        this.mealShortRepository = mealShortRepository;
 
         currentMeal = view.loadMeal();
-
     }
+
 
     @Override
     public void getRandomMeal() {
@@ -73,6 +86,16 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
     }
 
     @Override
+    public void getCountries() {
+        areaRepository.getAllAreas(this);
+    }
+
+    @Override
+    public void getMealsByCountry(String country) {
+        mealShortRepository.getByCountry(country, this);
+    }
+
+    @Override
     public void onSuccessResult(CategoryResponse categoryResponse) {
         view.showCategories(categoryResponse);
     }
@@ -80,6 +103,12 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
     @Override
     public void onSuccessResult(IngredientResponse ingredientResponse) {
         view.showIngredients(ingredientResponse);
+    }
+
+    @Override
+    public void onSuccessResult(AreaResponse areaResponse) {
+        view.showCountries(areaResponse);
+
     }
 
     @Override
@@ -128,6 +157,38 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
 
     @Override
     public void onLetterFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onCatSuccessResult(MealShortResponse mealShortResponse) {
+
+    }
+
+    @Override
+    public void onCatFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onIngSuccessResult(MealShortResponse mealShortResponse) {
+
+    }
+
+    @Override
+    public void onIngFailureResult(String error) {
+
+    }
+
+    @Override
+    public void onAreaSuccessResult(MealShortResponse mealShortResponse) {
+
+
+
+    }
+
+    @Override
+    public void onAreaFailureResult(String error) {
 
     }
 }

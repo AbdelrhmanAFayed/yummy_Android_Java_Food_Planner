@@ -80,7 +80,6 @@ public class Meal {
 
         for (int i = 1; i <= 20; i++) {
             try {
-                // Use reflection to access fields dynamically
                 Field ingredientField = this.getClass().getDeclaredField("strIngredient" + i);
                 Field measureField = this.getClass().getDeclaredField("strMeasure" + i);
                 ingredientField.setAccessible(true);

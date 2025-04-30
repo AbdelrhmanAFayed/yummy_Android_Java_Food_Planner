@@ -27,10 +27,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public SubCategoryAdapter(Context context, List<Category> items) {
         this.context = context;
         this.items = items;
-
-
-
-
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

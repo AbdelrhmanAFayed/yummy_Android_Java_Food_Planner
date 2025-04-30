@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.Yummy" parent="Theme.Material3.Dark">
+    <style name="Base.Theme.Yummy" parent="Theme.Material3.Dark.NoActionBar">
 
         <item name="colorPrimary">@color/accent_orange</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -10,5 +10,6 @@
 
 
         <item name="android:navigationBarColor">@color/dark_purple</item>
+
     </style>
 </resources>

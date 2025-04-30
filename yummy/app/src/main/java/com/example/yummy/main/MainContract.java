@@ -1,8 +1,10 @@
 package com.example.yummy.main;
 
 import com.example.yummy.model.meal.Meal;
+import com.example.yummy.model.network.area.AreaResponse;
 import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
+import com.example.yummy.model.network.mealshort.MealShortResponse;
 
 public interface MainContract {
 
@@ -17,7 +19,9 @@ public interface MainContract {
         void openMealDetails(Meal meal);
         void saveMeal(Meal meal);
         Meal loadMeal();
-    }
+
+        void showCountries(AreaResponse areaResponse);
+        }
 
     interface HomePresenter {
         void getRandomMeal();
@@ -26,6 +30,8 @@ public interface MainContract {
         void saveMealToPreferences(Meal meal);
         Meal loadMealFromPreferences();
         void onMealImageClicked();
+        public void getCountries();
+        public void getMealsByCountry(String country);
     }
 
 

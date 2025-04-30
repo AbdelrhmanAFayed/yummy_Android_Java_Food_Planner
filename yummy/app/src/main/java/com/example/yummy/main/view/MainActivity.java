@@ -16,24 +16,22 @@ import com.example.yummy.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.yummy.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home,
-                R.id.navigation_search,
-                R.id.navigation_favorites,
-                R.id.navigation_calendar,
-                R.id.navigation_account
-        ).build();
+//        BottomNavigationView navView = findViewById(R.id.nav_view);
+//
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.navigation_home,
+//                R.id.navigation_search,
+//                R.id.navigation_favorites,
+//                R.id.navigation_calendar,
+//                R.id.navigation_account
+//        ).build();
 
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
