@@ -17,8 +17,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/dark_purple"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/primary_orange"
             app:shapeAppearance="@style/ShapeAppearance.Medium">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,12 +31,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Suggestions"
-                    android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_Surprise"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_Surprise"
@@ -45,14 +45,14 @@
                     android:layout_height="48dp"
                     android:text="Surprise"
                     android:textColor="@color/olive_green"
-                    app:strokeColor="@color/olive_green"
-                    app:strokeWidth="2dp"
                     app:backgroundTint="@android:color/transparent"
-                    app:iconTint="@color/olive_green"
                     app:icon="@android:drawable/stat_notify_sync"
+                    app:iconTint="@color/olive_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:strokeColor="@color/olive_green"
+                    app:strokeWidth="2dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
