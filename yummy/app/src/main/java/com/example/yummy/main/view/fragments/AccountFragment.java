@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.yummy.R;
+import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.onboarding.view.OnBoarding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -55,8 +56,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getContext(), OnBoarding.class));
-                getActivity().finish();
+                Intent intent = new Intent(requireContext(), OnBoarding.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
 

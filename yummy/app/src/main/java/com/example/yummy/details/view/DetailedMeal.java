@@ -2,15 +2,19 @@ package com.example.yummy.details.view;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,9 +23,12 @@ import com.bumptech.glide.Glide;
 import com.example.yummy.R;
 import com.example.yummy.details.DetailedContract;
 import com.example.yummy.details.presenter.DetailedPresenter;
+import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepositoryImp;
+import com.example.yummy.onboarding.view.OnBoarding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DetailedMeal extends AppCompatActivity implements DetailedContract.View {
 
@@ -70,15 +77,48 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if((FirebaseAuth.getInstance().getCurrentUser()).isAnonymous())
+                {
+                    View dialogView = LayoutInflater.from(DetailedMeal.this).inflate(R.layout.boarding, null);
 
-                if (currentMeal == null) return;
+                    AlertDialog dialog = new AlertDialog.Builder(DetailedMeal.this)
+                            .setView(dialogView)
+                            .setCancelable(true)
+                            .create();
 
-                userClicked = true;
+                    Button loginButton = dialogView.findViewById(R.id.btn_login);
+                    Button signUpButton = dialogView.findViewById(R.id.btn_signup);
 
-                if (isFavorite) {
-                    presenter.removeFromFavorites(currentMeal);
-                } else {
-                    presenter.addToFavorites(currentMeal);
+                    loginButton.setOnClickListener(vi -> {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(DetailedMeal.this, OnBoarding.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                    });
+
+                    signUpButton.setOnClickListener(vi -> {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(DetailedMeal.this, OnBoarding.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                    });
+
+                    dialog.show();
+                }
+                else {
+                    if (currentMeal == null) return;
+
+                    userClicked = true;
+
+                    if (isFavorite) {
+                        presenter.removeFromFavorites(currentMeal);
+                    } else {
+                        presenter.addToFavorites(currentMeal);
+                    }
                 }
 
             }
