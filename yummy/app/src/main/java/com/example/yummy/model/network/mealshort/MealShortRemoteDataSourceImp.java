@@ -1,5 +1,8 @@
 package com.example.yummy.model.network.mealshort;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.yummy.model.network.RemoteDataSource;
 
 import retrofit2.Call;
@@ -50,7 +53,7 @@ public class MealShortRemoteDataSourceImp implements MealShortRemoteDataSource{
 
     @Override
     public void getMealsByIng(String Ing, MealShortNetWorkCallBack callBack) {
-        Call<MealShortResponse> call = service.getMealsByCategory(Ing);
+        Call<MealShortResponse> call = service.getMealsByIng(Ing);
 
         call.enqueue(new Callback<MealShortResponse>() {
             @Override
@@ -71,7 +74,7 @@ public class MealShortRemoteDataSourceImp implements MealShortRemoteDataSource{
     @Override
     public void getMealsByArea(String area, MealShortNetWorkCallBack callBack) {
 
-        Call<MealShortResponse> call = service.getMealsByCategory(area);
+        Call<MealShortResponse> call = service.getMealsByArea(area);
 
         call.enqueue(new Callback<MealShortResponse>() {
             @Override
@@ -81,6 +84,7 @@ public class MealShortRemoteDataSourceImp implements MealShortRemoteDataSource{
 
             @Override
             public void onFailure(Call<MealShortResponse> call, Throwable t) {
+               // Log.i("Here",response.body().mealShorts.toString());
                 callBack.onCatFailureResult(t.getMessage());
                 t.printStackTrace();
             }
