@@ -1,5 +1,6 @@
 package com.example.yummy.main.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,8 @@ import com.example.yummy.R;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.SearchPresenter;
 import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
+import com.example.yummy.meals.OnSearchItemClickListener;
+import com.example.yummy.meals.view.MealActivity;
 import com.example.yummy.model.area.Area;
 import com.example.yummy.model.area.AreaRepositoryImp;
 import com.example.yummy.model.category.Category;
@@ -34,7 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class SearchFragment extends Fragment implements MainContract.SearchView {
+public class SearchFragment extends Fragment implements MainContract.SearchView , OnSearchItemClickListener {
 
     private SearchView searchView;
     private RadioGroup tabs;
@@ -93,7 +95,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
                         requireContext(),
                         Collections.emptyList(),
                         SearchAdapter.Mode.MEAL,
-                        null
+                        this
                 );
                 recycler.setAdapter(adapter);
 
@@ -132,7 +134,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
         adapter = new SearchAdapter(
                 requireContext(),
                 meals,
-                SearchAdapter.Mode.MEAL,null
+                SearchAdapter.Mode.MEAL,this
 
         );
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
@@ -145,7 +147,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
                 requireContext(),
                 filteredAreas,
                 SearchAdapter.Mode.COUNTRY,
-                null
+                this
         );
 
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 1));
@@ -158,7 +160,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
                 requireContext(),
                 filteredCategories,
                 SearchAdapter.Mode.CATEGORY,
-                null
+                this
         );
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         recycler.setAdapter(adapter);
@@ -170,7 +172,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
                 requireContext(),
                 filteredIngredients,
                 SearchAdapter.Mode.INGREDIENT,
-                null
+                this
         );
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         recycler.setAdapter(adapter);
@@ -179,5 +181,13 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
     @Override
     public void showSearchError(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSearchItemClick(String sourceType, String value) {
+        Intent intent = new Intent(requireContext(), MealActivity.class);
+        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_TYPE, sourceType);
+        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_VALUE, value);
+        startActivity(intent);
     }
 }

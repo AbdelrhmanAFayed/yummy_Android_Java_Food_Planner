@@ -117,7 +117,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:drawableEnd="@android:drawable/ic_media_ff"
             android:text="View By Category"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />
@@ -139,7 +138,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:drawableEnd="@android:drawable/ic_media_ff"
             android:text="View By Country"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />
@@ -161,7 +159,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:drawableEnd="@android:drawable/ic_media_ff"
             android:text="View By Ingredient"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />

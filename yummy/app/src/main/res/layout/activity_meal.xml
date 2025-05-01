@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutMealActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/accent_orange"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewMeals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_purple"
+        android:queryHint="Search meals..." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMeals"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="8dp" />
+
+</LinearLayout>

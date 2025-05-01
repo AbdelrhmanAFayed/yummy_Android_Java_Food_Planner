@@ -21,7 +21,7 @@ import com.example.yummy.model.meal.Meal;
 
 import java.util.List;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public enum Mode { MEAL, COUNTRY, CATEGORY, INGREDIENT }
 
@@ -31,10 +31,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private final Mode         mode;
     private OnSearchItemClickListener listener;
 
-    public SearchAdapter(Context context,
-                         List<?> items,
-                         Mode mode,
-                         OnSearchItemClickListener listener) {
+    public HomeAdapter(Context context,
+                       List<?> items,
+                       Mode mode,
+                       OnSearchItemClickListener listener) {
         this.context  = context;
         this.items    = items;
         this.mode     = mode;
@@ -45,12 +45,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // assumes you have a square-card layout: item_search.xml
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.search_item, parent, false);
+                .inflate(R.layout.item_meal, parent, false);
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
+    @Override public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
         Object obj = items.get(pos);
         String title = "";
         String imageUrl = null;
@@ -91,32 +90,32 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.image.setImageResource(R.drawable.ic_search_black_24dp);
         }
 
-       holder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if (listener != null) {
-                   String sourceType = "";
-                   String value = "";
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    String sourceType = "";
+                    String value = "";
 
-                   switch (mode) {
-                       case COUNTRY:
-                           sourceType = MealActivity.SOURCE_TYPE_AREA;
-                           value = ((Area) obj).getStrArea();
-                           break;
-                       case CATEGORY:
-                           sourceType = MealActivity.SOURCE_TYPE_CATEGORY;
-                           value = ((Category) obj).getStrCategory();
-                           break;
-                       case INGREDIENT:
-                           sourceType = MealActivity.SOURCE_TYPE_INGREDIENT;
-                           value = ((Ingredient) obj).getStrIngredient();
-                           break;
-                   }
+                    switch (mode) {
+                        case COUNTRY:
+                            sourceType = MealActivity.SOURCE_TYPE_AREA;
+                            value = ((Area) obj).getStrArea();
+                            break;
+                        case CATEGORY:
+                            sourceType = MealActivity.SOURCE_TYPE_CATEGORY;
+                            value = ((Category) obj).getStrCategory();
+                            break;
+                        case INGREDIENT:
+                            sourceType = MealActivity.SOURCE_TYPE_INGREDIENT;
+                            value = ((Ingredient) obj).getStrIngredient();
+                            break;
+                    }
 
-                   listener.onSearchItemClick(sourceType, value);
-               }
-           }
-       });
+                    listener.onSearchItemClick(sourceType, value);
+                }
+            }
+        });
     }
 
     @Override public int getItemCount() { return items.size(); }
@@ -126,8 +125,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         TextView title;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.imageMeal);
-            title = itemView.findViewById(R.id.textMealName);
+            image = itemView.findViewById(R.id.sunImg);
+            title = itemView.findViewById(R.id.subTitle);
         }
     }
 }

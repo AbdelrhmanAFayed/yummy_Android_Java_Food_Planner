@@ -11,11 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,31 +23,22 @@ import com.example.yummy.R;
 import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.HomePresenter;
-import com.example.yummy.main.view.fragments.adapters.SubCategoryAdapter;
-import com.example.yummy.main.view.fragments.adapters.SubCountryAdapter;
-import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
-import com.example.yummy.model.area.AreaRepository;
+import com.example.yummy.main.view.fragments.adapters.HomeAdapter;
+import com.example.yummy.meals.OnSearchItemClickListener;
+import com.example.yummy.meals.view.MealActivity;
 import com.example.yummy.model.area.AreaRepositoryImp;
-import com.example.yummy.model.category.CategoryRepository;
 import com.example.yummy.model.category.CategoryRepositoryImp;
-import com.example.yummy.model.ingredient.IngredientRepository;
 import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
-import com.example.yummy.model.meal.MealRepository;
 import com.example.yummy.model.meal.MealRepositoryImp;
 import com.example.yummy.model.mealshort.MealShortRepositoryImp;
 import com.example.yummy.model.network.area.AreaResponse;
-import com.example.yummy.model.network.category.CatNetWorkCallBack;
 import com.example.yummy.model.network.category.CategoryResponse;
-import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
-import com.example.yummy.model.network.meal.MealNetWorkCallBack;
-import com.example.yummy.model.network.meal.MealResponse;
-import com.example.yummy.model.network.mealshort.MealShortResponse;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
-public class HomeFragment extends Fragment implements MainContract.HomeView {
+public class HomeFragment extends Fragment implements MainContract.HomeView, OnSearchItemClickListener {
 
 
     private MainContract.HomePresenter presenter;
@@ -144,21 +133,19 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
 
     @Override
     public void showIngredients(IngredientResponse ingredientResponse) {
-        SubIngredientAdapter adapter = new SubIngredientAdapter(requireContext(), ingredientResponse.getIngredients());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        ingRecyclerView.setLayoutManager(layoutManager);
+        HomeAdapter adapter = new HomeAdapter(requireContext(), ingredientResponse.getIngredients(), HomeAdapter.Mode.INGREDIENT, this);
+        ingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         ingRecyclerView.setAdapter(adapter);
 
     }
 
     @Override
     public void showCategories(CategoryResponse categoryResponse) {
-        SubCategoryAdapter adapter = new SubCategoryAdapter(requireContext(), categoryResponse.getCategories());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        catRecyclerView.setLayoutManager(layoutManager);
+        HomeAdapter adapter = new HomeAdapter(requireContext(), categoryResponse.getCategories(), HomeAdapter.Mode.CATEGORY, this);
+        catRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         catRecyclerView.setAdapter(adapter);
-
     }
+
 
     @Override
     public void showHomeError(String message) {
@@ -197,12 +184,18 @@ public class HomeFragment extends Fragment implements MainContract.HomeView {
 
     @Override
     public void showCountries(AreaResponse areaResponse) {
-        SubCountryAdapter adapter = new SubCountryAdapter(requireContext(), areaResponse.getAreas());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        countryRecyclerView.setLayoutManager(layoutManager);
+        HomeAdapter adapter = new HomeAdapter(requireContext(), areaResponse.getAreas(), HomeAdapter.Mode.COUNTRY, this);
+        countryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setAdapter(adapter);
     }
 
 
 
+    @Override
+    public void onSearchItemClick(String sourceType, String value) {
+        Intent intent = new Intent(requireContext(), MealActivity.class);
+        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_TYPE, sourceType);
+        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_VALUE, value);
+        startActivity(intent);
+    }
 }

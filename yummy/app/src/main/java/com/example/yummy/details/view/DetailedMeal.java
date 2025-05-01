@@ -7,16 +7,11 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,11 +19,9 @@ import com.bumptech.glide.Glide;
 import com.example.yummy.R;
 import com.example.yummy.details.DetailedContract;
 import com.example.yummy.details.presenter.DetailedPresenter;
-import com.example.yummy.main.view.fragments.adapters.SubIngredientAdapter;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepositoryImp;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 public class DetailedMeal extends AppCompatActivity implements DetailedContract.View {
 
