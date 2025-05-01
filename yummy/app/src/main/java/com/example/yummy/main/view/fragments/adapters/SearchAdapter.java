@@ -18,12 +18,13 @@ import com.example.yummy.model.area.Area;
 import com.example.yummy.model.category.Category;
 import com.example.yummy.model.ingredient.Ingredient;
 import com.example.yummy.model.meal.Meal;
+import com.example.yummy.model.mealshort.MealShort;
 
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    public enum Mode { MEAL, COUNTRY, CATEGORY, INGREDIENT }
+    public enum Mode { MEAL,MEAL_SHORT, COUNTRY, CATEGORY, INGREDIENT }
 
 
     private final Context context;
@@ -56,6 +57,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         String imageUrl = null;
 
         switch(mode) {
+            case MEAL_SHORT:
+                MealShort ms = (MealShort) obj;
+                title    = ms.getStrMeal();
+                imageUrl = ms.getStrMealThumb();
+                break;
             case MEAL:
                 Meal m = (Meal) obj;
                 title    = m.getStrMeal();
@@ -111,6 +117,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                            sourceType = MealActivity.SOURCE_TYPE_INGREDIENT;
                            value = ((Ingredient) obj).getStrIngredient();
                            break;
+                       case MEAL:
+                           sourceType = "Meal";
+                           value = ((Meal) obj).getIdMeal();
+                           break;
+
                    }
 
                    listener.onSearchItemClick(sourceType, value);

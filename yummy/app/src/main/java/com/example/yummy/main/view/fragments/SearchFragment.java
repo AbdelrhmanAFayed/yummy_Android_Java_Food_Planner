@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.example.yummy.R;
+import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.SearchPresenter;
 import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
@@ -32,6 +33,7 @@ import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepositoryImp;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -84,13 +86,12 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
                 return true;
             }
         });
+        tabs.check(R.id.tab_meals);
 
         tabs.setOnCheckedChangeListener((group, checkedId) -> {
-            // clear any search text
             searchView.setQuery("", false);
 
             if (checkedId == R.id.tab_meals) {
-                // show empty grid until user types
                 adapter = new SearchAdapter(
                         requireContext(),
                         Collections.emptyList(),
@@ -111,9 +112,6 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
         });
     }
     private void doSearch(String query) {
-        if (query.isBlank()) {
-            return;
-        }
 
         int id = tabs.getCheckedRadioButtonId();
         if (id == R.id.tab_meals) {
@@ -131,12 +129,19 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
 
     @Override
     public void showMealSearchResults(List<Meal> meals) {
-        adapter = new SearchAdapter(
-                requireContext(),
-                meals,
-                SearchAdapter.Mode.MEAL,this
 
-        );
+        if(meals == null )
+        {
+            meals = new ArrayList<Meal>();
+
+        }
+            adapter = new SearchAdapter(
+                    requireContext(),
+                    meals,
+                    SearchAdapter.Mode.MEAL, this
+
+            );
+
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         recycler.setAdapter(adapter);
     }
@@ -185,9 +190,18 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
 
     @Override
     public void onSearchItemClick(String sourceType, String value) {
-        Intent intent = new Intent(requireContext(), MealActivity.class);
-        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_TYPE, sourceType);
-        intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_VALUE, value);
-        startActivity(intent);
+        if(sourceType == "Meal")
+        {
+            Intent intent = new Intent(requireContext(), DetailedMeal.class);
+            intent.putExtra("meal_id", value);
+            startActivity(intent);
+
+        }
+        else {
+            Intent intent = new Intent(requireContext(), MealActivity.class);
+            intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_TYPE, sourceType);
+            intent.putExtra(MealActivity.EXTRA_MEAL_SOURCE_VALUE, value);
+            startActivity(intent);
+        }
     }
 }
