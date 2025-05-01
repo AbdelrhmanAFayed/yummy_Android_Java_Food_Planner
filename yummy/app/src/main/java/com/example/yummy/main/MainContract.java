@@ -1,10 +1,15 @@
 package com.example.yummy.main;
 
+import com.example.yummy.model.area.Area;
+import com.example.yummy.model.category.Category;
+import com.example.yummy.model.ingredient.Ingredient;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.network.area.AreaResponse;
 import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
 import com.example.yummy.model.network.mealshort.MealShortResponse;
+
+import java.util.List;
 
 public interface MainContract {
 
@@ -34,6 +39,20 @@ public interface MainContract {
         public void getMealsByCountry(String country);
     }
 
+    interface SearchView {
+        void showMealSearchResults(List<Meal> meals);
+        void showCountrySearchResults(List<Area> filteredAreas);
+        void showCategorySearchResults(List<Category> filteredCategories);
+        void showIngredientSearchResults(List<Ingredient> filteredIngredients);
+        void showSearchError(String message);
+    }
+
+    interface SearchPresenter {
+        void searchMealsByName(String query);
+        void searchCountries(String query);
+        void searchCategories(String query);
+        void searchIngredients(String query);
+    }
 
 
 

@@ -14,25 +14,70 @@
         android:layout_marginBottom="8dp"
         android:background="@color/dark_purple"
         android:iconifiedByDefault="false"
-        android:queryHint="Search for meals..." />
+        android:queryHint="Search..." />
 
-    <!-- TabLayout for switching search types -->
-<com.google.android.material.tabs.TabLayout
-android:id="@+id/tabLayout"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-app:tabIndicatorColor="@android:color/black"
-app:tabSelectedTextColor="@android:color/black"
-app:tabTextColor="@android:color/darker_gray"
-android:layout_marginBottom="8dp" />
+    <!-- RadioGroup as “tabs” -->
+    <RadioGroup
+        android:id="@+id/tabGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/dark_purple"
+        android:layout_marginBottom="8dp">
+
+        <RadioButton
+            android:id="@+id/tab_meals"
+            style="@style/Widget.Material3.CompoundButton.RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/olive_green"
+            android:text="Meals"
+            android:textSize="4pt"
+            android:textColor="@color/on_primary" />
+
+        <RadioButton
+            android:id="@+id/tab_countries"
+            style="@style/Widget.Material3.CompoundButton.RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/olive_green"
+            android:text="Countries"
+            android:textSize="4pt"
+            android:textColor="@color/on_primary" />
+
+        <RadioButton
+            android:id="@+id/tab_categories"
+            style="@style/Widget.Material3.CompoundButton.RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/olive_green"
+            android:text="Categories"
+            android:textSize="4pt"
+            android:textColor="@color/on_primary" />
+
+        <RadioButton
+            android:id="@+id/tab_ingredients"
+            style="@style/Widget.Material3.CompoundButton.RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/olive_green"
+            android:text="Ingredients"
+            android:textSize="4pt"
+            android:textColor="@color/on_primary" />
+
+    </RadioGroup>
 
     <!-- RecyclerView to show search results -->
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/recyclerView"
-android:layout_width="match_parent"
-android:layout_height="0dp"
-android:layout_weight="1"
-android:paddingTop="8dp"
-android:scrollbars="vertical" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"
+        android:scrollbars="vertical" />
 
-    </LinearLayout>
+</LinearLayout>

@@ -46,8 +46,7 @@ public class SubCountryAdapter extends RecyclerView.Adapter<SubCountryAdapter.Vi
         Area area = areaList.get(position);
         holder.countryName.setText(area.getStrArea());
 
-        Glide.with(context).load("https://flagsapi.com/" + Area.COUNTRY_TO_CODE.get(area.getStrArea()) + "/flat/64.png")
-                .circleCrop()
+        Glide.with(context).load("https://flagcdn.com/w2560/" + Area.COUNTRY_TO_CODE.get(area.getStrArea()) + ".png")
                 .into(holder.img);
     }
 

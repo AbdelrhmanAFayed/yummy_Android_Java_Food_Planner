@@ -6,18 +6,41 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 
 import com.example.yummy.R;
-import com.google.android.material.tabs.TabLayout;
+import com.example.yummy.main.MainContract;
+import com.example.yummy.main.presenter.fragpresenter.SearchPresenter;
+import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
+import com.example.yummy.model.area.Area;
+import com.example.yummy.model.area.AreaRepositoryImp;
+import com.example.yummy.model.category.Category;
+import com.example.yummy.model.category.CategoryRepositoryImp;
+import com.example.yummy.model.ingredient.Ingredient;
+import com.example.yummy.model.ingredient.IngredientRepositoryImp;
+import com.example.yummy.model.meal.Meal;
+import com.example.yummy.model.meal.MealRepositoryImp;
+
+import java.util.Collections;
+import java.util.List;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements MainContract.SearchView {
 
+    private SearchView searchView;
+    private RadioGroup tabs;
+    private RecyclerView recycler;
+    private MainContract.SearchPresenter presenter;
+    private SearchAdapter adapter ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +50,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_search, container, false);
 
 
@@ -36,13 +59,125 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        searchView = view.findViewById(R.id.searchView);
+        tabs = view.findViewById(R.id.tabGroup);
+        recycler = view.findViewById(R.id.recyclerViewSearch);
 
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        presenter = new SearchPresenter(
+                this,
+                MealRepositoryImp.getInstance(requireContext()),
+                AreaRepositoryImp.getInstance(),
+                CategoryRepositoryImp.getInstance(),
+                IngredientRepositoryImp.getInstance()
+        );
 
-        tabLayout.addTab(tabLayout.newTab().setText("Meals"));
-        tabLayout.addTab(tabLayout.newTab().setText("Categories"));
-        tabLayout.addTab(tabLayout.newTab().setText("Countries"));
-        tabLayout.addTab(tabLayout.newTab().setText("Ingredients"));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override public boolean onQueryTextSubmit(String query) {
+                doSearch(query.trim());
+                return true;
+            }
+            @Override public boolean onQueryTextChange(String newText) {
+                // live filtering as you type:
+                doSearch(newText.trim());
+                return true;
+            }
+        });
 
+        tabs.setOnCheckedChangeListener((group, checkedId) -> {
+            // clear any search text
+            searchView.setQuery("", false);
+
+            if (checkedId == R.id.tab_meals) {
+                // show empty grid until user types
+                adapter = new SearchAdapter(
+                        requireContext(),
+                        Collections.emptyList(),
+                        SearchAdapter.Mode.MEAL,
+                        null
+                );
+                recycler.setAdapter(adapter);
+
+            } else if (checkedId == R.id.tab_countries) {
+                presenter.searchCountries("");
+
+            } else if (checkedId == R.id.tab_categories) {
+                presenter.searchCategories("");
+
+            } else if (checkedId == R.id.tab_ingredients) {
+                presenter.searchIngredients("");
+            }
+        });
+    }
+    private void doSearch(String query) {
+        if (query.isBlank()) {
+            return;
+        }
+
+        int id = tabs.getCheckedRadioButtonId();
+        if (id == R.id.tab_meals) {
+            presenter.searchMealsByName(query);
+        } else if (id == R.id.tab_countries) {
+            presenter.searchCountries(query);
+        } else if (id == R.id.tab_categories) {
+            presenter.searchCategories(query);
+        } else if (id == R.id.tab_ingredients) {
+            presenter.searchIngredients(query);
+        }
+    }
+
+
+
+    @Override
+    public void showMealSearchResults(List<Meal> meals) {
+        adapter = new SearchAdapter(
+                requireContext(),
+                meals,
+                SearchAdapter.Mode.MEAL,null
+
+        );
+        recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void showCountrySearchResults(List<Area> filteredAreas) {
+        adapter = new SearchAdapter(
+                requireContext(),
+                filteredAreas,
+                SearchAdapter.Mode.COUNTRY,
+                null
+        );
+
+        recycler.setLayoutManager(new GridLayoutManager(requireContext(), 1));
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void showCategorySearchResults(List<Category> filteredCategories) {
+        adapter = new SearchAdapter(
+                requireContext(),
+                filteredCategories,
+                SearchAdapter.Mode.CATEGORY,
+                null
+        );
+        recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void showIngredientSearchResults(List<Ingredient> filteredIngredients) {
+        adapter = new SearchAdapter(
+                requireContext(),
+                filteredIngredients,
+                SearchAdapter.Mode.INGREDIENT,
+                null
+        );
+        recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void showSearchError(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
