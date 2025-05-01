@@ -19,7 +19,7 @@ public interface BoardingContract {
         void showLoadingIndicator(boolean show);
 
         void promptForUsername();
-        void onUsernameSaved();               // new callback
+        void onUsernameSaved();
         void onUsernameSaveError(String err);
         void saveUsernameLocally(String username);
     }

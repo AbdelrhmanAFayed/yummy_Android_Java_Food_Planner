@@ -136,7 +136,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             handleUsernameChosen("Anonymous");
-                            view.showAnonymousSignInSuccess();
+                            //view.showAnonymousSignInSuccess();
                         } else {
                             view.showAnonymousSignInError(task.getException().getMessage());
                         }
