@@ -13,19 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
 import com.example.yummy.main.OnFavClickListener;
-import com.example.yummy.main.OnSearchItemClickListener;
 import com.example.yummy.model.meal.Meal;
 
 import java.util.List;
 
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
-
-
     private final List<Meal> meals;
     private final Context context;
     private final OnFavClickListener listener;
-
 
     public FavAdapter(Context context, List<Meal> meals, OnFavClickListener listener) {
         this.context = context;
@@ -33,12 +29,11 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-
-    @NonNull @Override
+    @NonNull
+    @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // assumes you have a square-card layout: item_search.xml
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.search_item, parent, false);
+                .inflate(R.layout.fav_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -58,10 +53,15 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick( meal);
+                listener.onItemClick(meal);
             }
         });
 
+        holder.btnRemove.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onRemove(meal);
+            }
+        });
     }
 
     public void updateList(List<Meal> newMeals) {
@@ -70,16 +70,21 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-
-    @Override public int getItemCount() { return meals.size(); }
+    @Override
+    public int getItemCount() {
+        return meals.size();
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView title;
+        View btnRemove;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.imageMeal);
             title = itemView.findViewById(R.id.textMealName);
+            btnRemove = itemView.findViewById(R.id.btnRemoveFavorite);
         }
     }
 }

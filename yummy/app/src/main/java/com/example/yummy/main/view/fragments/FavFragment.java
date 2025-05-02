@@ -29,14 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavFragment extends Fragment implements MainContract.FavoritesView , OnFavClickListener {
-
+public class FavFragment extends Fragment implements MainContract.FavoritesView, OnFavClickListener {
 
     private MainContract.FavoritesPresenter presenter;
     private RecyclerView recycler;
-    private SearchView searchView;
     private FavAdapter adapter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,28 +51,19 @@ public class FavFragment extends Fragment implements MainContract.FavoritesView 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recycler   = view.findViewById(R.id.recyclerFav);
-        searchView = view.findViewById(R.id.searchFav);
-
+        recycler = view.findViewById(R.id.recyclerFav);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         adapter = new FavAdapter(requireContext(), new ArrayList<>(), this);
         recycler.setAdapter(adapter);
 
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override public boolean onQueryTextSubmit(String query) {
-                presenter.searchFavorites(query.trim());
-                return true;
-            }
-            @Override public boolean onQueryTextChange(String newText) {
-                presenter.searchFavorites(newText.trim());
-                return true;
-            }
-        });
-
         presenter.loadAllFavorites();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadAllFavorites();
     }
 
     @Override
@@ -85,7 +73,6 @@ public class FavFragment extends Fragment implements MainContract.FavoritesView 
 
     @Override
     public void showFavoritesError(String message) {
-
     }
 
     @Override
@@ -93,7 +80,10 @@ public class FavFragment extends Fragment implements MainContract.FavoritesView 
         Intent intent = new Intent(requireContext(), DetailedMeal.class);
         intent.putExtra("meal_id", meal.getIdMeal());
         startActivity(intent);
-
     }
 
+    @Override
+    public void onRemove(Meal meal) {
+        presenter.removeFavorite(meal); // Call presenter to remove from DB
+    }
 }

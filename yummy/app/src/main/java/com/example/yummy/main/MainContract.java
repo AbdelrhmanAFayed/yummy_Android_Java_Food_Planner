@@ -57,7 +57,6 @@ public interface MainContract {
 
     interface FavoritesPresenter {
         void loadAllFavorites();
-        void searchFavorites(String query);
         void removeFavorite(Meal meal);
      }
 

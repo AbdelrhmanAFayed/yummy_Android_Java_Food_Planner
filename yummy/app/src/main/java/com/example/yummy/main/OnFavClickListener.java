@@ -6,4 +6,6 @@ public interface OnFavClickListener {
 
     void onItemClick( Meal meal);
 
+    void onRemove(Meal meal);
+
 }

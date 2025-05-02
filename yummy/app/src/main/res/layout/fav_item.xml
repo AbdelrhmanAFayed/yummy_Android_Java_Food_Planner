@@ -7,7 +7,6 @@
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp">
 
-    <!-- make the inner layout fill the card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,21 +16,46 @@
         <ImageView
             android:id="@+id/imageMeal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#01FFFFFF"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:background="#01FFFFFF" />
 
-        <TextView
-            android:id="@+id/textMealName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:padding="8dp"
-            android:textAlignment="center"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/textMealName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnRemoveFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/accent_orange"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="6dp"
+                android:text="Remove"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

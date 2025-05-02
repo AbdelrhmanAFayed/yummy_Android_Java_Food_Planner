@@ -38,18 +38,6 @@ public class FavPresenter implements MainContract.FavoritesPresenter {
         });
     }
 
-    @Override
-    public void searchFavorites(String query) {
-        if (currentLiveData != null) currentLiveData.removeObservers((androidx.lifecycle.LifecycleOwner) view);
-        currentLiveData = repository.getMealsByNameLocal("%" + query + "%");
-        currentLiveData.observe((androidx.lifecycle.LifecycleOwner) view, meals -> {
-            if (meals == null || meals.isEmpty()) {
-                view.showFavoritesError("No matching favorites.");
-            } else {
-                view.showFavorites(meals);
-            }
-        });
-    }
 
     @Override
     public void removeFavorite(Meal meal) {
