@@ -121,6 +121,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                            sourceType = "Meal";
                            value = ((Meal) obj).getIdMeal();
                            break;
+                       case MEAL_SHORT:
+                           sourceType = "Meal";
+                           value = ((MealShort) obj).getIdMeal();
+                           break;
+
 
                    }
 

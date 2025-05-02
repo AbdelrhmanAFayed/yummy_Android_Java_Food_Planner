@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yummy.R;
+import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
 import com.example.yummy.meals.MealContract;
 import com.example.yummy.meals.OnSearchItemClickListener;
@@ -152,6 +153,9 @@ public class MealActivity extends AppCompatActivity implements MealContract.View
 
     @Override
     public void onSearchItemClick(String sourceType, String value) {
+        Intent intent = new Intent(this, DetailedMeal.class);
+        intent.putExtra("meal_id", value);
+        startActivity(intent);
 
     }
 }
