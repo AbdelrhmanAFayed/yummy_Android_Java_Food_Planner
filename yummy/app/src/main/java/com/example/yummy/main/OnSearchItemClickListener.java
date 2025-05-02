@@ -1,4 +1,4 @@
-package com.example.yummy.meals;
+package com.example.yummy.main;
 
 public interface OnSearchItemClickListener {
 

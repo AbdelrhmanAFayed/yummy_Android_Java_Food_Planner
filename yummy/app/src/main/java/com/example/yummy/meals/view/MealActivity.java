@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,12 +13,10 @@ import com.example.yummy.R;
 import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
 import com.example.yummy.meals.MealContract;
-import com.example.yummy.meals.OnSearchItemClickListener;
+import com.example.yummy.main.OnSearchItemClickListener;
 import com.example.yummy.meals.presenter.MealPresenter;
 import com.example.yummy.model.mealshort.MealShort;
 import com.example.yummy.model.mealshort.MealShortRepositoryImp;
-import com.example.yummy.model.network.mealshort.MealShortRemoteDataSource;
-import com.example.yummy.model.network.mealshort.MealShortRemoteDataSourceImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +64,8 @@ public class MealActivity extends AppCompatActivity implements MealContract.View
     }
 
     private void initViews() {
-        searchView = findViewById(R.id.meal_search_view);
-        recyclerView = findViewById(R.id.meal_recycler_view);
+        searchView = findViewById(R.id.searchFav);
+        recyclerView = findViewById(R.id.recyclerFav);
     }
 
     private void setupRecyclerView() {

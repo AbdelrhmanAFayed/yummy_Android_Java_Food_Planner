@@ -8,14 +8,14 @@
     android:padding="8dp">
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/meal_search_view"
+        android:id="@+id/searchFav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_purple"
         android:queryHint="Search meals..." />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/meal_recycler_view"
+        android:id="@+id/recyclerFav"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

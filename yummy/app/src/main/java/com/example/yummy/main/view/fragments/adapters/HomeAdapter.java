@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yummy.R;
-import com.example.yummy.meals.OnSearchItemClickListener;
+import com.example.yummy.main.OnSearchItemClickListener;
 import com.example.yummy.meals.view.MealActivity;
 import com.example.yummy.model.area.Area;
 import com.example.yummy.model.category.Category;

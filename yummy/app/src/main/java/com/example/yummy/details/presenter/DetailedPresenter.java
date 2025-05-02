@@ -22,7 +22,21 @@ public class DetailedPresenter implements DetailedContract.Presenter , MealNetWo
 
     @Override
     public void getMealDetails(String mealId) {
-        repository.getByID(mealId,this);
+        LiveData<Meal> localMeal = repository.getMealByIDLocal(mealId);
+
+        localMeal.observeForever(new Observer<Meal>() {
+            @Override
+            public void onChanged(Meal meal) {
+                localMeal.removeObserver(this);
+                if (meal != null) {
+                    view.showMealDetails(meal);
+                    checkIfFavorite(mealId);
+                } else {
+                    // fallback to API
+                    repository.getByID(mealId, DetailedPresenter.this);
+                }
+            }
+        });
     }
 
     @Override

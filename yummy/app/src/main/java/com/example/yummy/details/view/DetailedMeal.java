@@ -125,19 +125,17 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
         });
 
         String json = getIntent().getStringExtra("meal");
-
         String mealId = getIntent().getStringExtra("meal_id");
 
         if (json != null) {
-
             presenter.loadMealFromIntent(json);
         } else if (mealId != null) {
-
             presenter.getMealDetails(mealId);
         } else {
             Toast.makeText(this, "No meal data provided", Toast.LENGTH_SHORT).show();
             finish();
         }
+
 
 
 

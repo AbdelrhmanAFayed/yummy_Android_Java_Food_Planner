@@ -74,6 +74,15 @@ public class Meal {
     private String dateModified;
 
 
+    private byte[] imageData;
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
     public List<Ingredient> getIngredientsWithMeasurements() {
         List<Ingredient> ingredients = new ArrayList<>();

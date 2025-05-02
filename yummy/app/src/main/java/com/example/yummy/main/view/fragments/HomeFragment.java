@@ -24,7 +24,7 @@ import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.HomePresenter;
 import com.example.yummy.main.view.fragments.adapters.HomeAdapter;
-import com.example.yummy.meals.OnSearchItemClickListener;
+import com.example.yummy.main.OnSearchItemClickListener;
 import com.example.yummy.meals.view.MealActivity;
 import com.example.yummy.model.area.AreaRepositoryImp;
 import com.example.yummy.model.category.CategoryRepositoryImp;

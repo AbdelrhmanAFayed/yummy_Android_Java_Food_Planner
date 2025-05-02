@@ -13,9 +13,6 @@ import java.util.List;
 
 public interface MainContract {
 
-
-
-
     interface HomeView {
         void showRandomMeal(Meal meal);
         void showIngredients(IngredientResponse ingredientResponse);
@@ -34,8 +31,8 @@ public interface MainContract {
         void getCategories();
         void saveMealToPreferences(Meal meal);
         void onMealImageClicked();
-        public void getCountries();
-        public void getMealsByCountry(String country);
+        void getCountries();
+        void getMealsByCountry(String country);
     }
 
     interface SearchView {
@@ -53,6 +50,15 @@ public interface MainContract {
         void searchIngredients(String query);
     }
 
+    interface FavoritesView {
+        void showFavorites(List<Meal> favorites);
+        void showFavoritesError(String message);
+    }
 
+    interface FavoritesPresenter {
+        void loadAllFavorites();
+        void searchFavorites(String query);
+        void removeFavorite(Meal meal);
+     }
 
 }

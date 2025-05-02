@@ -1,30 +1,99 @@
 package com.example.yummy.main.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yummy.R;
+import com.example.yummy.details.view.DetailedMeal;
+import com.example.yummy.main.MainContract;
+import com.example.yummy.main.OnFavClickListener;
+import com.example.yummy.main.presenter.fragpresenter.FavPresenter;
+import com.example.yummy.main.view.fragments.adapters.FavAdapter;
+import com.example.yummy.main.OnSearchItemClickListener;
+import com.example.yummy.model.meal.Meal;
+import com.example.yummy.model.meal.MealRepositoryImp;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class FavFragment extends Fragment {
+public class FavFragment extends Fragment implements MainContract.FavoritesView , OnFavClickListener {
 
 
+    private MainContract.FavoritesPresenter presenter;
+    private RecyclerView recycler;
+    private SearchView searchView;
+    private FavAdapter adapter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new FavPresenter(this, MealRepositoryImp.getInstance(requireContext()));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fav, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recycler   = view.findViewById(R.id.recyclerFav);
+        searchView = view.findViewById(R.id.searchFav);
+
+        recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        adapter = new FavAdapter(requireContext(), new ArrayList<>(), this);
+        recycler.setAdapter(adapter);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override public boolean onQueryTextSubmit(String query) {
+                presenter.searchFavorites(query.trim());
+                return true;
+            }
+            @Override public boolean onQueryTextChange(String newText) {
+                presenter.searchFavorites(newText.trim());
+                return true;
+            }
+        });
+
+        presenter.loadAllFavorites();
+
+    }
+
+    @Override
+    public void showFavorites(List<Meal> favorites) {
+        adapter.updateList(favorites);
+    }
+
+    @Override
+    public void showFavoritesError(String message) {
+
+    }
+
+    @Override
+    public void onItemClick(Meal meal) {
+        Intent intent = new Intent(requireContext(), DetailedMeal.class);
+        intent.putExtra("meal_id", meal.getIdMeal());
+        startActivity(intent);
+
+    }
+
 }

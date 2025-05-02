@@ -2,9 +2,11 @@ package com.example.yummy.model.meal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import androidx.lifecycle.LiveData;
 
+import com.bumptech.glide.Glide;
 import com.example.yummy.model.db.MealLocalDataSource;
 import com.example.yummy.model.db.MealLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
@@ -13,10 +15,13 @@ import com.example.yummy.model.network.meal.MealRemoteDataSourceImp;
 import com.example.yummy.model.network.meal.MealResponse;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 
 public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
@@ -30,6 +35,8 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
     private final MealLocalDataSource localDataSource;
     private final SharedPreferences prefs;
     private final Gson gson = new Gson();
+
+    private Context context = null ;
 
     private MealNetWorkCallBack   callerCallback;
 
@@ -54,6 +61,7 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
         this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.context = context ;
     }
 
 
@@ -119,7 +127,24 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                localDataSource.insertMeal(meal);
+                try {
+                    Bitmap bmp = Glide.with(context)
+                            .asBitmap()
+                            .load(meal.getStrMealThumb())
+                            .submit()
+                            .get();
+
+                    int bytes = bmp.getRowBytes() * bmp.getHeight();
+                    ByteBuffer buffer = ByteBuffer.allocate(bytes);
+                    bmp.copyPixelsToBuffer(buffer);
+                    meal.setImageData(buffer.array());
+                    localDataSource.insertMeal(meal);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         }).start();
     }
