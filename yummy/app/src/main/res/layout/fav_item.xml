@@ -45,7 +45,7 @@
 
             <Button
                 android:id="@+id/btnRemoveFavorite"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/accent_orange"
                 android:minWidth="0dp"

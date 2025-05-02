@@ -9,6 +9,7 @@ import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
 import com.example.yummy.model.network.mealshort.MealShortResponse;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MainContract {
@@ -59,5 +60,14 @@ public interface MainContract {
         void loadAllFavorites();
         void removeFavorite(Meal meal);
      }
+
+    interface CalendarView {
+        void showMealsForDay(List<Meal> meals);
+        void showCalendarError(String message);
+    }
+
+    interface CalendarPresenter {
+        void loadMealsForDay(Date date);
+    }
 
 }
