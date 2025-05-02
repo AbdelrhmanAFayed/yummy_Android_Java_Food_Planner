@@ -45,15 +45,17 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
         this.areaRepository = areaRepository;
         this.mealShortRepository = mealShortRepository;
 
-        currentMeal = view.loadMeal();
     }
 
 
     @Override
+    public void getMealOfDay() {
+        mealRepository.getMealOfTheDay(this);
+    }
+
+    @Override
     public void getRandomMeal() {
-
             mealRepository.getRandom(this);
-
     }
 
     @Override
@@ -71,10 +73,7 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
         view.saveMeal(meal);
     }
 
-    @Override
-    public Meal loadMealFromPreferences() {
-        return view.loadMeal();
-    }
+
 
     @Override
     public void onMealImageClicked() {

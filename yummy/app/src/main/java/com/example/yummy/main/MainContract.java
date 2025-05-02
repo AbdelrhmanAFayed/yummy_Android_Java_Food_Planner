@@ -23,17 +23,16 @@ public interface MainContract {
         void showHomeError(String message);
         void openMealDetails(Meal meal);
         void saveMeal(Meal meal);
-        Meal loadMeal();
 
         void showCountries(AreaResponse areaResponse);
         }
 
     interface HomePresenter {
+        void getMealOfDay();
         void getRandomMeal();
         void getIngredients();
         void getCategories();
         void saveMealToPreferences(Meal meal);
-        Meal loadMealFromPreferences();
         void onMealImageClicked();
         public void getCountries();
         public void getMealsByCountry(String country);

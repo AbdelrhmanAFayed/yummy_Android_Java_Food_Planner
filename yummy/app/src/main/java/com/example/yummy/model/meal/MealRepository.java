@@ -11,6 +11,8 @@ public interface MealRepository {
 
     public void getRandom(MealNetWorkCallBack callBack);
 
+    public void getMealOfTheDay(MealNetWorkCallBack cb);
+
     public void getByName(String name , MealNetWorkCallBack callBack);
 
     public void getByID(String ID , MealNetWorkCallBack callBack);

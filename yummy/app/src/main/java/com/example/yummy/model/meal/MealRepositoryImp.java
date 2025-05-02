@@ -1,6 +1,7 @@
 package com.example.yummy.model.meal;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 
@@ -9,41 +10,74 @@ import com.example.yummy.model.db.MealLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealRemoteDataSource;
 import com.example.yummy.model.network.meal.MealRemoteDataSourceImp;
+import com.example.yummy.model.network.meal.MealResponse;
+import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
-public class MealRepositoryImp implements MealRepository{
+public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
 
 
-    private MealRemoteDataSource remoteDataSource;
-    private MealLocalDataSource localDataSource;
+    private static final String PREFS_NAME = "meal_prefs";
+    private static final String KEY_RANDOM_JSON = "random_meal_json";
+    private static final String KEY_RANDOM_DATE = "random_meal_date";
 
+    private final MealRemoteDataSource remoteDataSource;
+    private final MealLocalDataSource localDataSource;
+    private final SharedPreferences prefs;
+    private final Gson gson = new Gson();
 
+    private MealNetWorkCallBack   callerCallback;
 
-
-    private static MealRepositoryImp repo = null ;
+    private static MealRepositoryImp repo = null;
 
 
     public static MealRepositoryImp getInstance(Context context) {
         if (repo == null) {
-            repo = new MealRepositoryImp(MealRemoteDataSourceImp.getInstance(), MealLocalDataSourceImp.getInstance(context));
+            repo = new MealRepositoryImp(
+                    MealRemoteDataSourceImp.getInstance(),
+                    MealLocalDataSourceImp.getInstance(context),
+                    context
+            );
         }
         return repo;
     }
 
 
-    private MealRepositoryImp(MealRemoteDataSource remoteDataSource, MealLocalDataSource mealLocalDataSource) {
+    private MealRepositoryImp(MealRemoteDataSource remoteDataSource,
+                              MealLocalDataSource localDataSource,
+                              Context context) {
         this.remoteDataSource = remoteDataSource;
-        this.localDataSource = mealLocalDataSource;
+        this.localDataSource = localDataSource;
+        this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
 
     @Override
-    public void getRandom(MealNetWorkCallBack callBack) {
+    public void getRandom(MealNetWorkCallBack cb) {
+        this.callerCallback = cb;
+        remoteDataSource.getMealOfTheDay(this);
+    }
 
-        remoteDataSource.getMealOfTheDay(callBack);
+    public void getMealOfTheDay(MealNetWorkCallBack cb) {
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                .format(new Date());
 
+        String storedDate = prefs.getString(KEY_RANDOM_DATE, null);
+        String storedJson = prefs.getString(KEY_RANDOM_JSON, null);
+
+        if (today.equals(storedDate) && storedJson != null) {
+            MealResponse resp = new MealResponse();
+            resp.meals = List.of(gson.fromJson(storedJson, Meal.class));
+            cb.onDaySuccessResult(resp);
+        } else {
+            this.callerCallback = cb;
+            remoteDataSource.getMealOfTheDay(this);
+        }
     }
 
     @Override
@@ -98,5 +132,54 @@ public class MealRepositoryImp implements MealRepository{
                 localDataSource.deleteMeal(meal);
             }
         }).start();
+    }
+
+    @Override
+    public void onDaySuccessResult(MealResponse mealResponse) {
+        String json = gson.toJson(mealResponse.meals.get(0));
+        prefs.edit()
+                .putString(KEY_RANDOM_JSON, json)
+                .putString(KEY_RANDOM_DATE,
+                        new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                                .format(new Date()))
+                .apply();
+
+        if (callerCallback != null) {
+            callerCallback.onDaySuccessResult(mealResponse);
+        }
+
+    }
+
+    @Override
+    public void onDayFailureResult(String error) {
+        if (callerCallback != null) {
+            callerCallback.onDayFailureResult(error);
+        }
+
+    }
+
+    @Override
+    public void onNameSuccessResult(MealResponse m) {
+        callerCallback.onNameSuccessResult(m);
+    }
+    @Override
+    public void onNameFailureResult(String e) {
+        callerCallback.onNameFailureResult(e);
+    }
+    @Override
+    public void onIDSuccessResult(MealResponse m) {
+        callerCallback.onIDSuccessResult(m);
+    }
+    @Override
+    public void onIDFailureResult(String e) {
+        callerCallback.onIDFailureResult(e);
+    }
+    @Override
+    public void onLetterSuccessResult(MealResponse m) {
+        callerCallback.onLetterSuccessResult(m);
+    }
+    @Override
+    public void onLetterFailureResult(String e) {
+        callerCallback.onLetterFailureResult(e);
     }
 }

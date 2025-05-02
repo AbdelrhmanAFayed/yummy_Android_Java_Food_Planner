@@ -84,15 +84,7 @@ public class HomeFragment extends Fragment implements MainContract.HomeView, OnS
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(loadMeal() == null)
-        {
-            presenter.getRandomMeal();
-        }
-        else
-        {
-            showRandomMeal(loadMeal());
-        }
-
+        presenter.getMealOfDay();
 
 
         presenter.getIngredients();
@@ -172,15 +164,6 @@ public class HomeFragment extends Fragment implements MainContract.HomeView, OnS
 
     }
 
-    @Override
-    public Meal loadMeal() {
-        SharedPreferences prefs = requireContext().getSharedPreferences("MealPrefs", Context.MODE_PRIVATE);
-        String mealJson = prefs.getString("meal_json", null);
-        if (mealJson != null) {
-            return new Gson().fromJson(mealJson, Meal.class);
-        }
-        return null;
-    }
 
     @Override
     public void showCountries(AreaResponse areaResponse) {
