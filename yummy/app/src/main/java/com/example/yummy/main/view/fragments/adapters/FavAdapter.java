@@ -1,6 +1,9 @@
 package com.example.yummy.main.view.fragments.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,14 +45,15 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         Meal meal = meals.get(pos);
         holder.title.setText(meal.getStrMeal());
 
-        if (meal.getStrMealThumb() != null) {
-            Glide.with(context)
-                    .load(meal.getStrMealThumb())
-                    .centerCrop()
-                    .into(holder.image);
+        byte[] imageData = meal.getImageData();
+        if (imageData != null && imageData.length > 0) {
+            Log.i("ImageStored","Stored");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+            holder.image.setImageBitmap(bitmap);
         } else {
-            holder.image.setImageResource(R.drawable.ic_search_black_24dp);
+            Glide.with(holder.image.getContext()).load(meal.getStrMealThumb()).into(holder.image);
         }
+
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
