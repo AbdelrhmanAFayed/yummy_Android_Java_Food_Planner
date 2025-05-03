@@ -163,7 +163,9 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
     public void deleteMealLocal(final Meal meal) {
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
+                planDataSource.removeAllPlansForMeal(meal.getIdMeal());
                 localDataSource.deleteMeal(meal);
             }
         }).start();
