@@ -3,7 +3,7 @@
     android:id="@+id/layoutMealActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent_orange"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
     android:padding="8dp">
 
