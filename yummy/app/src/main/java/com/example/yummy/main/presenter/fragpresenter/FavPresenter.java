@@ -24,19 +24,21 @@ public class FavPresenter implements MainContract.FavoritesPresenter {
 
     @Override
     public void loadAllFavorites() {
-        if (currentLiveData != null) currentLiveData.removeObservers((androidx.lifecycle.LifecycleOwner) view);
+        if (currentLiveData != null) {
+            currentLiveData.removeObservers((androidx.lifecycle.LifecycleOwner) view);
+        }
         currentLiveData = repository.getAllMealsLocal();
         currentLiveData.observe((androidx.lifecycle.LifecycleOwner) view, new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meals) {
+                view.showFavorites(meals);
                 if (meals == null || meals.isEmpty()) {
                     view.showFavoritesError("No favorites yet.");
-                } else {
-                    view.showFavorites(meals);
                 }
             }
         });
     }
+
 
 
     @Override

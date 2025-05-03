@@ -84,6 +84,6 @@ public class FavFragment extends Fragment implements MainContract.FavoritesView,
 
     @Override
     public void onRemove(Meal meal) {
-        presenter.removeFavorite(meal); // Call presenter to remove from DB
+        presenter.removeFavorite(meal);
     }
 }
