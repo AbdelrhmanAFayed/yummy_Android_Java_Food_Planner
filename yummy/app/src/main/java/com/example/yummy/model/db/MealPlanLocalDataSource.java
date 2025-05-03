@@ -16,4 +16,8 @@ public interface MealPlanLocalDataSource {
 
 
     LiveData<List<Meal>> getPlannedMealsForDate(long date);
+
+    void removeAllPlansForMeal(String mealId);
+
+    int countPlansForMeal(String mealId);
 }

@@ -20,6 +20,9 @@ public interface MealPlanDao {
     @Query("DELETE FROM meal_plan WHERE mealId = :mealId AND day = :day")
     void removePlan(String mealId, long day);
 
+    @Query("DELETE FROM meal_plan WHERE mealId = :mealId")
+    void removeAllPlansForMeal(String mealId);
+
     @Transaction
     @Query(
             "SELECT m.* " +
@@ -28,4 +31,7 @@ public interface MealPlanDao {
                     "WHERE p.day = :day"
     )
     LiveData<List<Meal>> getMealsForDate(long day);
+
+    @Query("SELECT COUNT(*) FROM meal_plan WHERE mealId = :mealId")
+    int countPlansForMeal(String mealId);
 }

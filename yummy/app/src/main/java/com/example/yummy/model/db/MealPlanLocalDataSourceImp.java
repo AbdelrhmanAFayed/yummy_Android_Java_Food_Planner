@@ -39,4 +39,14 @@ public class MealPlanLocalDataSourceImp implements MealPlanLocalDataSource {
     public LiveData<List<Meal>> getPlannedMealsForDate(long date) {
         return planDao.getMealsForDate(date);
     }
+
+    @Override
+    public void removeAllPlansForMeal(String mealId) {
+        planDao.removeAllPlansForMeal(mealId);
+    }
+
+    @Override
+    public int countPlansForMeal(String mealId) {
+        return planDao.countPlansForMeal(mealId);
+    }
 }
