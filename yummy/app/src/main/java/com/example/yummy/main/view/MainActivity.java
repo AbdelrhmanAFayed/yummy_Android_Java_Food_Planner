@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (isGuest &&( (itemId == R.id.navigation_favorites) || (itemId == R.id.navigation_calendar)) ) {
+            if (isGuest &&( (itemId == R.id.navigation_favorites) || (itemId == R.id.navigation_calendar) || (itemId == R.id.navigation_account)  ) ) {
 
                 showLoginDialog();
                 return false;
