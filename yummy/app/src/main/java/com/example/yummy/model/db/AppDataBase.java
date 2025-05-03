@@ -8,12 +8,13 @@ import androidx.room.RoomDatabase;
 
 import com.example.yummy.model.meal.Meal;
 
-@Database(entities = {Meal.class}, version = 1, exportSchema = false)
+@Database(entities = {Meal.class, MealPlan.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static AppDataBase instance = null;
 
     public abstract MealDAO getMealDao();
+    public abstract MealPlanDao   getMealPlanDao();
 
     public static synchronized AppDataBase getInstance(Context context) {
         if (instance == null) {

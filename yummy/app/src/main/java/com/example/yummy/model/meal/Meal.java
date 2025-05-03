@@ -539,4 +539,5 @@ public class Meal {
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
     }
+
 }

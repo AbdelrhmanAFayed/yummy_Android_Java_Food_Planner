@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import com.bumptech.glide.Glide;
 import com.example.yummy.model.db.MealLocalDataSource;
 import com.example.yummy.model.db.MealLocalDataSourceImp;
+import com.example.yummy.model.db.MealPlanLocalDataSource;
+import com.example.yummy.model.db.MealPlanLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealRemoteDataSource;
 import com.example.yummy.model.network.meal.MealRemoteDataSourceImp;
@@ -33,6 +35,9 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
 
     private final MealRemoteDataSource remoteDataSource;
     private final MealLocalDataSource localDataSource;
+
+    private final MealPlanLocalDataSource planDataSource;
+
     private final SharedPreferences prefs;
     private final Gson gson = new Gson();
 
@@ -62,6 +67,7 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
         this.localDataSource = localDataSource;
         this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.context = context ;
+        this.planDataSource = MealPlanLocalDataSourceImp.getInstance(context);
     }
 
 
@@ -157,6 +163,23 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                 localDataSource.deleteMeal(meal);
             }
         }).start();
+    }
+
+    @Override
+    public void addMealToPlan(Meal meal, long date) {
+        insertMealLocal(meal);
+        planDataSource.addMealToPlan(meal.getIdMeal(), date);
+    }
+
+    @Override
+    public void removeMealFromPlan(Meal meal, long date) {
+        planDataSource.removeMealFromPlan(meal.getIdMeal(), date);
+
+    }
+
+    @Override
+    public LiveData<List<Meal>> getMealsForDate(long date) {
+        return planDataSource.getPlannedMealsForDate(date);
     }
 
     @Override

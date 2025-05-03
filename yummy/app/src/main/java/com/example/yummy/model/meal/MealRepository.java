@@ -27,5 +27,9 @@ public interface MealRepository {
     void insertMealLocal(Meal meal);
     void deleteMealLocal(Meal meal);
 
+    void addMealToPlan(Meal meal, long date);
+    void removeMealFromPlan(Meal meal, long date);
+    LiveData<List<Meal>> getMealsForDate(long date);
+
 
 }
