@@ -135,16 +135,19 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
             @Override
             public void run() {
                 try {
+
                     Bitmap bmp = Glide.with(context)
                             .asBitmap()
                             .load(meal.getStrMealThumb())
                             .submit()
                             .get();
 
-                    int bytes = bmp.getRowBytes() * bmp.getHeight();
-                    ByteBuffer buffer = ByteBuffer.allocate(bytes);
-                    bmp.copyPixelsToBuffer(buffer);
-                    meal.setImageData(buffer.array());
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] pngBytes = baos.toByteArray();
+
+                    meal.setImageData(pngBytes);
+
                     localDataSource.insertMeal(meal);
                 } catch (ExecutionException e) {
                     throw new RuntimeException(e);
