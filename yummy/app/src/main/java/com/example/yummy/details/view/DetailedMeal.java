@@ -2,6 +2,7 @@ package com.example.yummy.details.view;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +25,14 @@ import com.bumptech.glide.Glide;
 import com.example.yummy.R;
 import com.example.yummy.details.DetailedContract;
 import com.example.yummy.details.presenter.DetailedPresenter;
-import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepositoryImp;
 import com.example.yummy.onboarding.view.OnBoarding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class DetailedMeal extends AppCompatActivity implements DetailedContract.View {
 
@@ -43,6 +47,7 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
 
     WebView webView ;
     RecyclerView ingRecyclerView ;
+    FloatingActionButton planBtn ;
 
     private Meal currentMeal = null;
     private boolean isFavorite = false;
@@ -73,6 +78,8 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
         btn_add = findViewById(R.id.btn_add);
 
         ingRecyclerView = findViewById(R.id.recyclerIng);
+        planBtn = findViewById(R.id.btn_plan);
+        planBtn.setOnClickListener(v -> showDatePicker());
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +203,34 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
 
     }
 
+    @Override
+    public void showPlanSuccess(Date date) {
 
+    }
 
+    @Override
+    public void showPlanError(String message) {
+
+    }
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+
+        new DatePickerDialog(
+                this,
+                com.google.android.material.R.style.Theme_Material3_DayNight_Dialog,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar chosen = Calendar.getInstance();
+                        chosen.set(year, month, dayOfMonth);
+                        presenter.planMeal(currentMeal, chosen.getTime());
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
+    }
 
 }

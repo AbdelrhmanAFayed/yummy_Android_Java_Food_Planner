@@ -10,6 +10,9 @@ import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealResponse;
 import com.google.gson.Gson;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class DetailedPresenter implements DetailedContract.Presenter , MealNetWorkCallBack {
 
     private final DetailedContract.View view;
@@ -68,6 +71,22 @@ public class DetailedPresenter implements DetailedContract.Presenter , MealNetWo
         Meal meal = new Gson().fromJson(mealJson, Meal.class);
         view.showMealDetails(meal);
        checkIfFavorite(meal.getIdMeal());
+
+    }
+
+    @Override
+    public void planMeal(Meal meal, Date date) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE,      0);
+        cal.set(Calendar.SECOND,      0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long day = cal.getTimeInMillis();
+
+        repository.addMealToPlan(meal ,day);
+        view.showPlanSuccess(date);
 
     }
 
