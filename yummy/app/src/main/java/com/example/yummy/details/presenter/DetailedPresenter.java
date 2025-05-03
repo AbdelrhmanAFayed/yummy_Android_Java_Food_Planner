@@ -35,7 +35,6 @@ public class DetailedPresenter implements DetailedContract.Presenter , MealNetWo
                     view.showMealDetails(meal);
                     checkIfFavorite(mealId);
                 } else {
-                    // fallback to API
                     repository.getByID(mealId, DetailedPresenter.this);
                 }
             }

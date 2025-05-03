@@ -4,7 +4,10 @@ import static android.widget.Toast.LENGTH_LONG;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -160,7 +163,16 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
         textArea.setText(meal.getStrArea());
         textSubIns.setText(meal.getStrInstructions());
 
-        Glide.with(this).load(meal.getStrMealThumb() + "/large").into(imageView);
+        byte[] imageData = meal.getImageData();
+
+
+        if (imageData != null && imageData.length > 0) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+            imageView.setImageBitmap(bitmap);
+        } else {
+            Log.e("IMG", "bitmap decode failed");
+            Glide.with(this).load(meal.getStrMealThumb() + "/large").into(imageView);
+        }
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -248,5 +260,4 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
                 calendar.get(Calendar.DAY_OF_MONTH)
         ).show();
     }
-
 }
