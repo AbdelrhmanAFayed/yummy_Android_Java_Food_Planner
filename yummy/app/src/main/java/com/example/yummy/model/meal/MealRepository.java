@@ -2,6 +2,7 @@ package com.example.yummy.model.meal;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.yummy.model.db.MealPlan;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 
 import java.util.List;

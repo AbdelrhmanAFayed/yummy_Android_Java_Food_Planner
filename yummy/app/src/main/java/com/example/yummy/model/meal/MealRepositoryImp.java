@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.bumptech.glide.Glide;
 import com.example.yummy.model.db.MealLocalDataSource;
 import com.example.yummy.model.db.MealLocalDataSourceImp;
+import com.example.yummy.model.db.MealPlan;
 import com.example.yummy.model.db.MealPlanLocalDataSource;
 import com.example.yummy.model.db.MealPlanLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
