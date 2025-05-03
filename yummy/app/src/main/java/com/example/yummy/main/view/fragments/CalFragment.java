@@ -1,5 +1,6 @@
 package com.example.yummy.main.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.example.yummy.R;
+import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.OnCalendarItemClickListener;
 import com.example.yummy.main.presenter.fragpresenter.CalPresenter;
@@ -94,6 +96,9 @@ public class CalFragment extends Fragment implements MainContract.CalendarView ,
 
     @Override
     public void onMealClicked(Meal meal) {
+        Intent intent = new Intent(requireContext(), DetailedMeal.class);
+        intent.putExtra("meal_id", meal.getIdMeal());
+        startActivity(intent);
 
     }
 
