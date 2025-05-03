@@ -68,6 +68,7 @@ public interface MainContract {
 
     interface CalendarPresenter {
         void loadMealsForDay(Date date);
+        void removeMealFromDay(Meal meal , long day);
     }
 
 }
