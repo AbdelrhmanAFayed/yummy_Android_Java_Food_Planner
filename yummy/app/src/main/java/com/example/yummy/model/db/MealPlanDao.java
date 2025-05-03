@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface MealPlanDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addPlan(MealPlan plan);
 
     @Query("DELETE FROM meal_plan WHERE mealId = :mealId AND day = :day")
