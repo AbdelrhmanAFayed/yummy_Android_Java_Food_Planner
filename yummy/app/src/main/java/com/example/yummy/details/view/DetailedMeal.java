@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -170,7 +173,20 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
                 "frameborder='0' allow='autoplay; encrypted-media' allowfullscreen>" +
                 "</iframe></body></html>";
 
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                webView.setVisibility(View.GONE);
+            }
+            @Override
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                webView.setVisibility(View.GONE);
+            }
+        });
+
         webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         MealIngredientAdapter adapter = new MealIngredientAdapter(this, meal.getIngredientsWithMeasurements());
