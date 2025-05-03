@@ -148,6 +148,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
 
     @Override
     public void showCountrySearchResults(List<Area> filteredAreas) {
+        if (!isAdded()) return;
         adapter = new SearchAdapter(
                 requireContext(),
                 filteredAreas,
@@ -161,6 +162,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
 
     @Override
     public void showCategorySearchResults(List<Category> filteredCategories) {
+        if (!isAdded()) return;
         adapter = new SearchAdapter(
                 requireContext(),
                 filteredCategories,
@@ -173,6 +175,7 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
 
     @Override
     public void showIngredientSearchResults(List<Ingredient> filteredIngredients) {
+        if (!isAdded()) return;
         adapter = new SearchAdapter(
                 requireContext(),
                 filteredIngredients,
