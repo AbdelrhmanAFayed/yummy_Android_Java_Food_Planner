@@ -3,6 +3,7 @@ package com.example.yummy.model.meal;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -40,6 +41,8 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
     private static final String PREFS_NAME = "meal_prefs";
     private static final String KEY_RANDOM_JSON = "random_meal_json";
     private static final String KEY_RANDOM_DATE = "random_meal_date";
+    private static final String TAG = "MealRepositoryImp";
+
 
     private final MealRemoteDataSource remoteDataSource;
     private final MealLocalDataSource localDataSource;
@@ -169,13 +172,24 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
 
     private void addMealIdToFirebase(String mealId) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        Log.d(TAG, "Attempting to add meal ID to Firebase: " + mealId);
         if (auth.getCurrentUser() != null) {
             String uid = auth.getCurrentUser().getUid();
+            Log.d(TAG, "User authenticated, UID: " + uid);
             DatabaseReference mealIdsRef = FirebaseDatabase.getInstance()
                     .getReference("users")
                     .child(uid)
                     .child("mealIds");
-            mealIdsRef.child(mealId).setValue(true);
+            Log.d(TAG, "Database reference set to: " + mealIdsRef.toString());
+            mealIdsRef.child(mealId).setValue(true)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d(TAG, "Successfully added meal ID to Firebase: " + mealId);
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Failed to add meal ID to Firebase: " + e.getMessage());
+                    });
+        } else {
+            Log.w(TAG, "No authenticated user found; cannot add meal ID to Firebase.");
         }
     }
 
@@ -188,7 +202,15 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     .child(uid)
                     .child("mealIds")
                     .child(mealId);
-            mealIdRef.removeValue();
+            mealIdRef.removeValue()
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d(TAG, "Successfully removed meal ID from Firebase: " + mealId);
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Failed to remove meal ID from Firebase: " + e.getMessage());
+                    });
+        } else {
+            Log.w(TAG, "No authenticated user found.");
         }
     }
 
