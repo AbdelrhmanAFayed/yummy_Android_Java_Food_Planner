@@ -32,6 +32,7 @@ import androidx.credentials.GetCredentialResponse;
 
 import com.example.yummy.R;
 import com.example.yummy.main.view.MainActivity;
+import com.example.yummy.model.meal.MealRepositoryImp;
 import com.example.yummy.onboarding.BoardingContract;
 import com.example.yummy.onboarding.presenter.BoardingPresenter;
 import com.example.yummy.splash.view.SplashScreen;
@@ -84,7 +85,7 @@ public class OnBoarding extends AppCompatActivity implements BoardingContract.Vi
         btnGuest           = findViewById(R.id.btn_guest);
         loadingIndicator   = findViewById(R.id.loadingIndicator);
 
-        presenter = new BoardingPresenter(this, FirebaseAuth.getInstance());
+        presenter = new BoardingPresenter(this, FirebaseAuth.getInstance(), MealRepositoryImp.getInstance(this));
 
         // Configure One-Tap Google Sign-In
         oneTapClient = Identity.getSignInClient(this);

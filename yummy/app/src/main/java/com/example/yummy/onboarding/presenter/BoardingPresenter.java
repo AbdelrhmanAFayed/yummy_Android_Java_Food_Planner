@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.yummy.model.meal.MealRepository;
 import com.example.yummy.onboarding.BoardingContract;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,13 +22,16 @@ public class BoardingPresenter implements BoardingContract.Presenter {
 
     private BoardingContract.View view ;
     private FirebaseAuth mAuth;
-
     private final FirebaseDatabase db;
 
-    public BoardingPresenter(BoardingContract.View view, FirebaseAuth auth) {
+    private MealRepository mealRepository;
+
+    public BoardingPresenter(BoardingContract.View view, FirebaseAuth auth , MealRepository mealRepository) {
         this.view = view;
         this.mAuth = auth;
         this.db = FirebaseDatabase.getInstance();
+
+        this.mealRepository =   mealRepository ;
     }
 
     @Override
@@ -53,6 +57,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                             {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 getUsernameFromDatabase();
+                                mealRepository.restoreMealsFromFirebase();
                                 view.showSignInSuccess();
                             }
                             else
@@ -114,6 +119,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
                         view.promptForUsername();
                     } else {
                         getUsernameFromDatabase();
+                        mealRepository.restoreMealsFromFirebase();
                         view.onGoogleSignInSuccess();
                     }
                 });
@@ -193,7 +199,7 @@ public class BoardingPresenter implements BoardingContract.Presenter {
         view.showLoadingIndicator(false);
         if (task.isSuccessful()) {
             view.showSignUpSuccess();
-            view.promptForUsername();    // <— prompt here
+            view.promptForUsername();
         } else {
             view.showSignUpError(task.getException().getMessage());
         }
