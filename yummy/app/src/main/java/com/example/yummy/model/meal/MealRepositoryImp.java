@@ -16,11 +16,18 @@ import com.example.yummy.model.network.meal.MealNetWorkCallBack;
 import com.example.yummy.model.network.meal.MealRemoteDataSource;
 import com.example.yummy.model.network.meal.MealRemoteDataSourceImp;
 import com.example.yummy.model.network.meal.MealResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -149,6 +156,7 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     meal.setImageData(pngBytes);
 
                     localDataSource.insertMeal(meal);
+                    addMealIdToFirebase(meal.getIdMeal());
                 } catch (ExecutionException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
@@ -159,6 +167,31 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
         }).start();
     }
 
+    private void addMealIdToFirebase(String mealId) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            String uid = auth.getCurrentUser().getUid();
+            DatabaseReference mealIdsRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("mealIds");
+            mealIdsRef.child(mealId).setValue(true);
+        }
+    }
+
+    private void removeMealIdFromFirebase(String mealId) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            String uid = auth.getCurrentUser().getUid();
+            DatabaseReference mealIdRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("mealIds")
+                    .child(mealId);
+            mealIdRef.removeValue();
+        }
+    }
+
     @Override
     public void deleteMealLocal(final Meal meal) {
         new Thread(new Runnable() {
@@ -167,9 +200,87 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
             {
                 planDataSource.removeAllPlansForMeal(meal.getIdMeal());
                 localDataSource.deleteMeal(meal);
+                removeMealIdFromFirebase(meal.getIdMeal());
             }
         }).start();
     }
+
+    @Override
+    public void restoreMealsFromFirebase() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            String uid = auth.getCurrentUser().getUid();
+            DatabaseReference mealIdsRef = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("mealIds");
+            mealIdsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<String> mealIds = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        mealIds.add(snapshot.getKey());
+                    }
+                    fetchAndInsertMeals(mealIds);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
+
+    private void fetchAndInsertMeals(List<String> mealIds) {
+        for (String mealId : mealIds) {
+            remoteDataSource.getMealByID(mealId, new MealNetWorkCallBack() {
+                @Override
+                public void onDaySuccessResult(MealResponse mealResponse) {
+
+                }
+
+                @Override
+                public void onDayFailureResult(String error) {
+
+                }
+
+                @Override
+                public void onNameSuccessResult(MealResponse mealResponse) {
+
+                }
+
+                @Override
+                public void onNameFailureResult(String error) {
+
+                }
+
+                @Override
+                public void onIDSuccessResult(MealResponse mealResponse) {
+                    if (mealResponse.meals != null && !mealResponse.meals.isEmpty()) {
+                        Meal meal = mealResponse.meals.get(0);
+                        insertMealLocal(meal);
+                    }
+
+                }
+
+                @Override
+                public void onIDFailureResult(String error) {
+
+                }
+
+                @Override
+                public void onLetterSuccessResult(MealResponse mealResponse) {
+
+                }
+
+                @Override
+                public void onLetterFailureResult(String error) {
+
+                }
+            });
+        }
+    }
+
 
     @Override
     public void addMealToPlan(Meal meal, long date) {

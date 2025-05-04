@@ -10,15 +10,15 @@ import java.util.List;
 public interface MealRepository {
 
 
-    public void getRandom(MealNetWorkCallBack callBack);
+    void getRandom(MealNetWorkCallBack callBack);
 
-    public void getMealOfTheDay(MealNetWorkCallBack cb);
+    void getMealOfTheDay(MealNetWorkCallBack cb);
 
-    public void getByName(String name , MealNetWorkCallBack callBack);
+    void getByName(String name , MealNetWorkCallBack callBack);
 
-    public void getByID(String ID , MealNetWorkCallBack callBack);
+    void getByID(String ID , MealNetWorkCallBack callBack);
 
-    public void getByFirstLetter(String letter , MealNetWorkCallBack callBack);
+    void getByFirstLetter(String letter , MealNetWorkCallBack callBack);
 
 
 
@@ -31,6 +31,8 @@ public interface MealRepository {
     void addMealToPlan(Meal meal, long date);
     void removeMealFromPlan(Meal meal, long date);
     LiveData<List<Meal>> getMealsForDate(long date);
+
+    void restoreMealsFromFirebase();
 
 
 }
