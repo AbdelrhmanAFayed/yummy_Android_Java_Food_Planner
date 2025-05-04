@@ -236,6 +236,7 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     .getReference("users")
                     .child(uid)
                     .child("mealIds");
+            Log.d(TAG, "Starting meal restoration for user: " + uid);
             mealIdsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -243,62 +244,61 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mealIds.add(snapshot.getKey());
                     }
-                    fetchAndInsertMeals(mealIds);
+                    Log.d(TAG, "Fetched meal IDs from Firebase: " + mealIds);
+                    if (mealIds.isEmpty()) {
+                        Log.w(TAG, "No meal IDs found in Firebase.");
+                    } else {
+                        fetchAndInsertMeals(mealIds);
+                    }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, "Error fetching meal IDs: " + databaseError.getMessage());
                 }
             });
+        } else {
+            Log.w(TAG, "No authenticated user found.");
         }
     }
 
     private void fetchAndInsertMeals(List<String> mealIds) {
         for (String mealId : mealIds) {
+            Log.d(TAG, "Fetching meal with ID: " + mealId);
             remoteDataSource.getMealByID(mealId, new MealNetWorkCallBack() {
                 @Override
-                public void onDaySuccessResult(MealResponse mealResponse) {
-
-                }
+                public void onDaySuccessResult(MealResponse mealResponse) {}
 
                 @Override
-                public void onDayFailureResult(String error) {
-
-                }
+                public void onDayFailureResult(String error) {}
 
                 @Override
-                public void onNameSuccessResult(MealResponse mealResponse) {
-
-                }
+                public void onNameSuccessResult(MealResponse mealResponse) {}
 
                 @Override
-                public void onNameFailureResult(String error) {
-
-                }
+                public void onNameFailureResult(String error) {}
 
                 @Override
                 public void onIDSuccessResult(MealResponse mealResponse) {
                     if (mealResponse.meals != null && !mealResponse.meals.isEmpty()) {
                         Meal meal = mealResponse.meals.get(0);
+                        Log.d(TAG, "Successfully fetched meal: " + meal.getStrMeal());
                         insertMealLocal(meal);
+                    } else {
+                        Log.w(TAG, "No meal data found for ID: " + mealId);
                     }
-
                 }
 
                 @Override
                 public void onIDFailureResult(String error) {
-
+                    Log.e(TAG, "Failed to fetch meal ID " + mealId + ": " + error);
                 }
 
                 @Override
-                public void onLetterSuccessResult(MealResponse mealResponse) {
-
-                }
+                public void onLetterSuccessResult(MealResponse mealResponse) {}
 
                 @Override
-                public void onLetterFailureResult(String error) {
-
-                }
+                public void onLetterFailureResult(String error) {}
             });
         }
     }
