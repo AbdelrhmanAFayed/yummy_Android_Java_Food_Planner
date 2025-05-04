@@ -37,6 +37,10 @@
         <activity
             android:name=".onboarding.view.OnBoarding"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
     </application>
 
 </manifest>
