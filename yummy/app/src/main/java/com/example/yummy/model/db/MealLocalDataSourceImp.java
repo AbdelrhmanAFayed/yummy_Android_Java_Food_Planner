@@ -43,23 +43,13 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
 
     @Override
     public void insertMeal(Meal meal) {
-        new Thread() {
-            @Override
-            public void run() {
-                mealDAO.insert(meal);
-            }
-        }.start();
+        new Thread(() -> mealDAO.insert(meal)).start();
 
     }
 
     @Override
     public void deleteMeal(Meal meal) {
-        new Thread() {
-            @Override
-            public void run() {
-                mealDAO.delete(meal);
-            }
-        }.start();
+        new Thread(() -> mealDAO.delete(meal)).start();
 
     }
 }
