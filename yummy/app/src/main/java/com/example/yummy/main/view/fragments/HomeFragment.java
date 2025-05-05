@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment implements MainContract.HomeView, OnS
 
     private ImageView randImg;
     private TextView mealTitle, mealDesc;
-    private RecyclerView ingRecyclerView, catRecyclerView, countryRecyclerView;;
+    private RecyclerView ingRecyclerView, catRecyclerView, countryRecyclerView;
     private MaterialButton btnSurprise;
 
     
@@ -97,20 +97,10 @@ public class HomeFragment extends Fragment implements MainContract.HomeView, OnS
         presenter.getCountries();
 
 
-        btnSurprise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.getRandomMeal();
-            }
-        });
+        btnSurprise.setOnClickListener(v -> presenter.getRandomMeal());
 
 
-        randImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onMealImageClicked();
-            }
-        });
+        randImg.setOnClickListener(v -> presenter.onMealImageClicked());
 
     }
 
