@@ -1,10 +1,7 @@
 package com.example.yummy.model.network.mealshort;
 
-import com.example.yummy.model.network.meal.MealResponse;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MealShortService {

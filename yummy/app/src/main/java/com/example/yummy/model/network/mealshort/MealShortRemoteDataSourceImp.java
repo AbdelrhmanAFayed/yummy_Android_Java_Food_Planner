@@ -1,8 +1,5 @@
 package com.example.yummy.model.network.mealshort;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.yummy.model.network.RemoteDataSource;
 
 import retrofit2.Call;
