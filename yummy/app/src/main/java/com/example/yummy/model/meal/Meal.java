@@ -15,6 +15,7 @@ import java.util.List;
 @Entity(tableName = "meals")
 public class Meal {
 
+
     /*JSON Attributes*/
 
     @PrimaryKey @NonNull
