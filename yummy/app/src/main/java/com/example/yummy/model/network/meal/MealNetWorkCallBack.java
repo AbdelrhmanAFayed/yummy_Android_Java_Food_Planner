@@ -2,20 +2,20 @@ package com.example.yummy.model.network.meal;
 
 public interface MealNetWorkCallBack {
 
-    public void onDaySuccessResult(MealResponse mealResponse);
-    public void onDayFailureResult(String error);
+    void onDaySuccessResult(MealResponse mealResponse);
+    void onDayFailureResult(String error);
 
 
-    public void onNameSuccessResult(MealResponse mealResponse);
-    public void onNameFailureResult(String error);
+    void onNameSuccessResult(MealResponse mealResponse);
+    void onNameFailureResult(String error);
 
 
-    public void onIDSuccessResult(MealResponse mealResponse);
-    public void onIDFailureResult(String error);
+    void onIDSuccessResult(MealResponse mealResponse);
+    void onIDFailureResult(String error);
 
 
-    public void onLetterSuccessResult(MealResponse mealResponse);
-    public void onLetterFailureResult(String error);
+    void onLetterSuccessResult(MealResponse mealResponse);
+    void onLetterFailureResult(String error);
 
 
 

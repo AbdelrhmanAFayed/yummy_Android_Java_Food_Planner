@@ -2,13 +2,13 @@ package com.example.yummy.model.network.meal;
 
 public interface MealRemoteDataSource {
 
-    public void getMealOfTheDay(MealNetWorkCallBack callBack);
+    void getMealOfTheDay(MealNetWorkCallBack callBack);
 
-    public void getMealByName(String name, MealNetWorkCallBack callBack);
+    void getMealByName(String name, MealNetWorkCallBack callBack);
 
-    public void getMealByID(String id, MealNetWorkCallBack callBack);
+    void getMealByID(String id, MealNetWorkCallBack callBack);
 
-    public void getMealByFirstLetter(String letter, MealNetWorkCallBack callBack);
+    void getMealByFirstLetter(String letter, MealNetWorkCallBack callBack);
 
 
 }
