@@ -23,6 +23,8 @@ import com.example.yummy.model.network.mealshort.MealShortResponse;
 
 public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCallBack, IngNetWorkCallBack, CatNetWorkCallBack, AreaNetWorkCallBack, MealShortNetWorkCallBack {
 
+    private boolean dialog = false ;
+
     private MainContract.HomeView view;
 
     private MealRepository mealRepository;
@@ -95,6 +97,11 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
     }
 
     @Override
+    public void clearFlag() {
+    dialog = false ;
+    }
+
+    @Override
     public void onSuccessResult(CategoryResponse categoryResponse) {
         view.showCategories(categoryResponse);
     }
@@ -112,7 +119,10 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
 
     @Override
     public void onFailureResult(String error) {
-        view.showHomeError(error);
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }
     }
 
     @Override
@@ -126,8 +136,10 @@ public class HomePresenter implements MainContract.HomePresenter, MealNetWorkCal
 
     @Override
     public void onDayFailureResult(String error) {
-        view.showHomeError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 
     @Override
     public void onNameSuccessResult(MealResponse mealResponse) {

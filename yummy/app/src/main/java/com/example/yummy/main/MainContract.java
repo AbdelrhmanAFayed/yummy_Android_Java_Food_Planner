@@ -21,7 +21,7 @@ public interface MainContract {
         void showHomeError(String message);
         void openMealDetails(Meal meal);
         void saveMeal(Meal meal);
-
+        void showErrorPopupWithNavigation();
         void showCountries(AreaResponse areaResponse);
         }
 
@@ -34,6 +34,7 @@ public interface MainContract {
         void onMealImageClicked();
         void getCountries();
         void getMealsByCountry(String country);
+        void clearFlag();
     }
 
     interface SearchView {
