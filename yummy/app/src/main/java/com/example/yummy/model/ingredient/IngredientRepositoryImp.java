@@ -1,7 +1,6 @@
 package com.example.yummy.model.ingredient;
 
 import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
-import com.example.yummy.model.network.ingredient.IngredientRemoteDataSource;
 import com.example.yummy.model.network.ingredient.IngredientRemoteDataSourceImp;
 
 public class IngredientRepositoryImp implements IngredientRepository{
