@@ -42,6 +42,7 @@ public interface MainContract {
         void showCategorySearchResults(List<Category> filteredCategories);
         void showIngredientSearchResults(List<Ingredient> filteredIngredients);
         void showSearchError(String message);
+        void showErrorPopupWithNavigation();
     }
 
     interface SearchPresenter {
@@ -49,6 +50,8 @@ public interface MainContract {
         void searchCountries(String query);
         void searchCategories(String query);
         void searchIngredients(String query);
+        void clearFlag();
+
     }
 
     interface FavoritesView {
