@@ -1,7 +1,6 @@
 package com.example.yummy.model.network.area;
 
 import com.example.yummy.model.network.RemoteDataSource;
-import com.example.yummy.model.network.mealshort.MealShortRemoteDataSourceImp;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,7 +8,7 @@ import retrofit2.Response;
 
 public class AreaRemoteDataSourceImp implements AreaRemoteDataSource {
 
-    private AreaService service = null ;
+    private AreaService service ;
     private static AreaRemoteDataSourceImp client = null ;
 
 
