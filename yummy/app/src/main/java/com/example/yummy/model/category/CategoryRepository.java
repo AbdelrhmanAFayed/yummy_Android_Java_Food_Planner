@@ -5,5 +5,5 @@ import com.example.yummy.model.network.category.CatNetWorkCallBack;
 public interface CategoryRepository {
 
 
-    public void getAll(CatNetWorkCallBack callBack);
+    void getAll(CatNetWorkCallBack callBack);
 }
