@@ -23,6 +23,9 @@ import java.util.List;
 public class SearchPresenter implements MainContract.SearchPresenter,
         AreaNetWorkCallBack, CatNetWorkCallBack, IngNetWorkCallBack, MealNetWorkCallBack {
 
+    private boolean dialog = false ;
+
+
     private final MainContract.SearchView view;
     private final MealRepository mealRepo;
     private final AreaRepository areaRepo;
@@ -82,6 +85,11 @@ public class SearchPresenter implements MainContract.SearchPresenter,
         }
     }
 
+    @Override
+    public void clearFlag() {
+        dialog = false ;
+    }
+
     private void filterCountries() {
         List<Area> filtered = new ArrayList<>();
         for (Area area : areas) {
@@ -135,8 +143,10 @@ public class SearchPresenter implements MainContract.SearchPresenter,
 
     @Override
     public void onFailureResult(String error) {
-        view.showSearchError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 
     @Override
     public void onDaySuccessResult(MealResponse response) {
@@ -157,21 +167,29 @@ public class SearchPresenter implements MainContract.SearchPresenter,
 
     @Override
     public void onDayFailureResult(String error) {
-        view.showSearchError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 
     @Override
     public void onNameFailureResult(String error) {
-        view.showSearchError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 
     @Override
     public void onLetterFailureResult(String error) {
-        view.showSearchError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 
     @Override
     public void onIDFailureResult(String error) {
-        view.showSearchError(error);
-    }
+        if (!dialog) {
+            view.showErrorPopupWithNavigation();
+            dialog = true ;
+        }    }
 }

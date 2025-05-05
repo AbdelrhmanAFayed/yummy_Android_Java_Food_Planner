@@ -5,8 +5,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +24,7 @@ import com.example.yummy.R;
 import com.example.yummy.details.view.DetailedMeal;
 import com.example.yummy.main.MainContract;
 import com.example.yummy.main.presenter.fragpresenter.SearchPresenter;
+import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.main.view.fragments.adapters.SearchAdapter;
 import com.example.yummy.main.OnSearchItemClickListener;
 import com.example.yummy.meals.view.MealActivity;
@@ -32,6 +36,7 @@ import com.example.yummy.model.ingredient.Ingredient;
 import com.example.yummy.model.ingredient.IngredientRepositoryImp;
 import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.meal.MealRepositoryImp;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -189,6 +194,28 @@ public class SearchFragment extends Fragment implements MainContract.SearchView 
     @Override
     public void showSearchError(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorPopupWithNavigation() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Offline")
+                .setMessage("No Internet")
+                .setCancelable(false)
+                .setPositiveButton("Go to Favorites", (dialog, which) -> {
+                    BottomNavigationView bottomNav = requireActivity().findViewById(R.id.nav_view);
+                    bottomNav.setSelectedItemId(R.id.navigation_favorites);
+                    NavController navController = Navigation.findNavController(requireView());
+                    navController.navigate(R.id.navigation_favorites);
+                    presenter.clearFlag();
+                    dialog.dismiss();
+                })
+                .setNeutralButton("Retry", (dialog, which) -> {
+                    Intent intent = new Intent(requireContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    requireActivity().finish();
+                }).show();
     }
 
     @Override
