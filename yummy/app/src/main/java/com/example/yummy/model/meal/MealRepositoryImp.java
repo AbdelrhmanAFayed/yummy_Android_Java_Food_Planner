@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData;
 import com.bumptech.glide.Glide;
 import com.example.yummy.model.db.MealLocalDataSource;
 import com.example.yummy.model.db.MealLocalDataSourceImp;
-import com.example.yummy.model.db.MealPlan;
 import com.example.yummy.model.db.MealPlanLocalDataSource;
 import com.example.yummy.model.db.MealPlanLocalDataSourceImp;
 import com.example.yummy.model.network.meal.MealNetWorkCallBack;
@@ -26,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +50,7 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
     private final SharedPreferences prefs;
     private final Gson gson = new Gson();
 
-    private Context context = null ;
+    private Context context  ;
 
     private MealNetWorkCallBack   callerCallback;
 
@@ -141,32 +139,27 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
 
     @Override
     public void insertMealLocal(final Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
+        new Thread(() -> {
+            try {
 
-                    Bitmap bmp = Glide.with(context)
-                            .asBitmap()
-                            .load(meal.getStrMealThumb())
-                            .submit()
-                            .get();
+                Bitmap bmp = Glide.with(context)
+                        .asBitmap()
+                        .load(meal.getStrMealThumb())
+                        .submit()
+                        .get();
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    byte[] pngBytes = baos.toByteArray();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] pngBytes = baos.toByteArray();
 
-                    meal.setImageData(pngBytes);
+                meal.setImageData(pngBytes);
 
-                    localDataSource.insertMeal(meal);
-                    addMealIdToFirebase(meal.getIdMeal());
-                } catch (ExecutionException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
+                localDataSource.insertMeal(meal);
+                addMealIdToFirebase(meal.getIdMeal());
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
+
         }).start();
     }
 
@@ -180,14 +173,10 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     .getReference("users")
                     .child(uid)
                     .child("mealIds");
-            Log.d(TAG, "Database reference set to: " + mealIdsRef.toString());
+            Log.d(TAG, "Database reference set to: " + mealIdsRef);
             mealIdsRef.child(mealId).setValue(true)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d(TAG, "Successfully added meal ID to Firebase: " + mealId);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to add meal ID to Firebase: " + e.getMessage());
-                    });
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Successfully added meal ID to Firebase: " + mealId))
+                    .addOnFailureListener(e -> Log.e(TAG, "Failed to add meal ID to Firebase: " + e.getMessage()));
         } else {
             Log.w(TAG, "No authenticated user found; cannot add meal ID to Firebase.");
         }
@@ -203,12 +192,8 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
                     .child("mealIds")
                     .child(mealId);
             mealIdRef.removeValue()
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d(TAG, "Successfully removed meal ID from Firebase: " + mealId);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to remove meal ID from Firebase: " + e.getMessage());
-                    });
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Successfully removed meal ID from Firebase: " + mealId))
+                    .addOnFailureListener(e -> Log.e(TAG, "Failed to remove meal ID from Firebase: " + e.getMessage()));
         } else {
             Log.w(TAG, "No authenticated user found.");
         }
@@ -216,14 +201,10 @@ public class MealRepositoryImp implements MealRepository , MealNetWorkCallBack{
 
     @Override
     public void deleteMealLocal(final Meal meal) {
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                planDataSource.removeAllPlansForMeal(meal.getIdMeal());
-                localDataSource.deleteMeal(meal);
-                removeMealIdFromFirebase(meal.getIdMeal());
-            }
+        new Thread(() -> {
+            planDataSource.removeAllPlansForMeal(meal.getIdMeal());
+            localDataSource.deleteMeal(meal);
+            removeMealIdFromFirebase(meal.getIdMeal());
         }).start();
     }
 
