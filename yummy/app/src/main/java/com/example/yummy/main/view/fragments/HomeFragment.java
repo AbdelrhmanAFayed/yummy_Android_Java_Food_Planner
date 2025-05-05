@@ -196,6 +196,6 @@ public class HomeFragment extends Fragment implements MainContract.HomeView, OnS
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     requireActivity().finish();
-                })                .show();
+                }).show();
     }
 }
