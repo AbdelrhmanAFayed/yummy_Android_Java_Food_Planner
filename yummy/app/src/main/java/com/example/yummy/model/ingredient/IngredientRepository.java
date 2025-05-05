@@ -5,5 +5,5 @@ import com.example.yummy.model.network.ingredient.IngNetWorkCallBack;
 public interface IngredientRepository {
 
 
-    public void getIngredients(IngNetWorkCallBack callBack);
+    void getIngredients(IngNetWorkCallBack callBack);
 }
