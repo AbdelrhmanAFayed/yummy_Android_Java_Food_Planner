@@ -7,7 +7,6 @@ import com.example.yummy.model.meal.Meal;
 import com.example.yummy.model.network.area.AreaResponse;
 import com.example.yummy.model.network.category.CategoryResponse;
 import com.example.yummy.model.network.ingredient.IngredientResponse;
-import com.example.yummy.model.network.mealshort.MealShortResponse;
 
 import java.util.Date;
 import java.util.List;
