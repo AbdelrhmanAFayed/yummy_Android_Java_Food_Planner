@@ -27,4 +27,10 @@
     <string name="view_by_country">View By Country</string>
     <string name="view_by_ingredient">View By Ingredient</string>
     <string name="image_of_the_meal_of_the_day">Image of the meal of the day</string>
+    <string name="meals">Meals</string>
+    <string name="countries">Countries</string>
+    <string name="categories">Categories</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="results">This view will hold the results of the search</string>
 </resources>
