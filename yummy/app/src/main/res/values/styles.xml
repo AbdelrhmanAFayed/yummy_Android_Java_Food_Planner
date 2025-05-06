@@ -20,7 +20,10 @@
         <item name="titleTextColor">?attr/colorOnPrimary</item>
     </style>
 
-
+    <style name="CustomCalendarView" parent="android:Widget.CalendarView">
+        <item name="android:weekNumberColor">@android:color/white</item>
+        <item name="android:selectedDateVerticalBar">@android:color/white</item>
+    </style>
 
 
 

@@ -9,7 +9,10 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weekNumberColor="@color/dark_purple" />
+        android:background="@android:color/transparent"
+        android:weekNumberColor="@color/dark_purple"
+        android:focusedMonthDateColor="@color/dark_purple"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMealsForDay"
