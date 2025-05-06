@@ -30,7 +30,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Suggestions"
+                    android:text="@string/day"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +43,7 @@
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="Surprise"
+                    android:text="@string/surprise"
                     android:textColor="@color/olive_green"
                     app:backgroundTint="@android:color/transparent"
                     app:icon="@android:drawable/stat_notify_sync"
@@ -73,6 +73,7 @@
                     android:id="@+id/randImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/image_of_the_meal_of_the_day"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher_foreground"/>
 
@@ -88,12 +89,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Title"
-                    android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:textColor="@android:color/white"
                     app:layout_constraintBottom_toTopOf="@+id/randDesc"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/randDesc"
@@ -101,12 +101,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Instructions"
-                    android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -117,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="View By Category"
+            android:text="@string/view_by_category"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />
 
@@ -138,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="View By Country"
+            android:text="@string/view_by_country"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />
 
@@ -159,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="View By Ingredient"
+            android:text="@string/view_by_ingredient"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/primary_orange" />
 

@@ -22,4 +22,9 @@
     <string name="ref">Refresh</string>
     <string name="sug">Suggested Meal</string>
     <string name="viewbycat" />
+    <string name="day">Meal of the Day</string>
+    <string name="view_by_category">View By Category</string>
+    <string name="view_by_country">View By Country</string>
+    <string name="view_by_ingredient">View By Ingredient</string>
+    <string name="image_of_the_meal_of_the_day">Image of the meal of the day</string>
 </resources>
