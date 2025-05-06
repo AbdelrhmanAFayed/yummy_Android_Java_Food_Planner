@@ -55,7 +55,7 @@
             android:buttonTint="@color/olive_green"
             android:text="@string/categories"
             android:textColor="@color/on_primary"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <RadioButton
             android:id="@+id/tab_ingredients"
@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="@color/olive_green"
-            android:text="@string/ingredient"
+            android:text="@string/ingredients"
             android:textColor="@color/on_primary"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
     </RadioGroup>
 
