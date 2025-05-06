@@ -1,8 +1,6 @@
 package com.example.yummy.onboarding.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,50 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.credentials.CredentialManager;
-import androidx.credentials.GetCredentialRequest;
-import androidx.credentials.GetCredentialResponse;
 
 import com.example.yummy.R;
 import com.example.yummy.main.view.MainActivity;
 import com.example.yummy.model.meal.MealRepositoryImp;
 import com.example.yummy.onboarding.BoardingContract;
 import com.example.yummy.onboarding.presenter.BoardingPresenter;
-import com.example.yummy.splash.view.SplashScreen;
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Arrays;
-import java.util.List;
-
 
 
 public class OnBoarding extends AppCompatActivity implements BoardingContract.View  {
@@ -87,7 +62,6 @@ public class OnBoarding extends AppCompatActivity implements BoardingContract.Vi
 
         presenter = new BoardingPresenter(this, FirebaseAuth.getInstance(), MealRepositoryImp.getInstance(this));
 
-        // Configure One-Tap Google Sign-In
         oneTapClient = Identity.getSignInClient(this);
         signInRequest = BeginSignInRequest.builder()
                 .setGoogleIdTokenRequestOptions(
@@ -141,7 +115,7 @@ public class OnBoarding extends AppCompatActivity implements BoardingContract.Vi
     @Override
     public void showSignInSuccess() {
         Toast.makeText(this, "Sign In Successful", Toast.LENGTH_SHORT).show();
-        navigateToHomeScreen();    // ← add this
+        navigateToHomeScreen();
     }
 
     @Override
@@ -248,7 +222,7 @@ public class OnBoarding extends AppCompatActivity implements BoardingContract.Vi
 
     @Override
     public void onUsernameSaved() {
-        Log.d("OnBoarding", "onUsernameSaved() called");  // <<<<<<<<<<
+        Log.d("OnBoarding", "onUsernameSaved() called");
         showLoadingIndicator(false);
         navigateToHomeScreen();
     }
