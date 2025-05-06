@@ -242,22 +242,34 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
     }
 
     private void showDatePicker() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        long minDate = today.getTimeInMillis();
 
-        new DatePickerDialog(
+        Calendar oneWeek = (Calendar) today.clone();
+        oneWeek.add(Calendar.DAY_OF_YEAR, 7);
+        long maxDate = oneWeek.getTimeInMillis();
+
+        DatePickerDialog dialog = new DatePickerDialog(
                 this,
                 com.google.android.material.R.style.Theme_Material3_DayNight_Dialog,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Calendar chosen = Calendar.getInstance();
-                        chosen.set(year, month, dayOfMonth);
-                        presenter.planMeal(currentMeal, chosen.getTime());
-                    }
+                (view, year, month, dayOfMonth) -> {
+                    Calendar chosen = Calendar.getInstance();
+                    chosen.set(year, month, dayOfMonth, 0, 0, 0);
+                    chosen.set(Calendar.MILLISECOND, 0);
+                    presenter.planMeal(currentMeal, chosen.getTime());
                 },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        ).show();
+                today.get(Calendar.YEAR),
+                today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH)
+        );
+
+        dialog.getDatePicker().setMinDate(minDate);
+        dialog.getDatePicker().setMaxDate(maxDate);
+
+        dialog.show();
     }
 }

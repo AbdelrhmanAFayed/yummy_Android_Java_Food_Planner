@@ -66,6 +66,7 @@ public class CalFragment extends Fragment implements MainContract.CalendarView ,
         long todayMillis = todayCal.getTimeInMillis();
         selectedDayMillis = todayMillis ;
 
+
         calendarViewWidget.setDate(todayMillis,false,true);
         Date today = new Date(todayMillis);
         presenter = new CalPresenter(this, MealRepositoryImp.getInstance(requireContext()));

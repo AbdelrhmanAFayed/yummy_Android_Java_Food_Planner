@@ -83,6 +83,7 @@ public class DetailedPresenter implements DetailedContract.Presenter , MealNetWo
         cal.set(Calendar.SECOND,      0);
         cal.set(Calendar.MILLISECOND, 0);
         long day = cal.getTimeInMillis();
+        
 
         repository.addMealToPlan(meal ,day);
         view.showPlanSuccess(date);
