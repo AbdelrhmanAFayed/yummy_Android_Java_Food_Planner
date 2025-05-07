@@ -169,7 +169,7 @@ public class OnBoarding extends AppCompatActivity implements BoardingContract.Vi
 
     @Override
     public void showAnonymousSignInError(String errorMessage) {
-        Toast.makeText(this, "Guest Sign-In Failed: " + errorMessage, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Guest Sign-In Failed: " + "Offline Mode Not Available with Guest", Toast.LENGTH_LONG).show();
     }
 
     @Override
