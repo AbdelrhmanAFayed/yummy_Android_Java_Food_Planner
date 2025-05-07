@@ -128,7 +128,15 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
                     userClicked = true;
 
                     if (isFavorite) {
-                        presenter.removeFromFavorites(currentMeal);
+                        new AlertDialog.Builder(DetailedMeal.this)
+                                .setTitle("Remove from Favourites")
+                                .setMessage("Are you sure you want to remove \""
+                                        + currentMeal.getStrMeal() + "\" from your favourites?")
+                                .setPositiveButton("Yes", (dialog, which) -> {
+                                    presenter.removeFromFavorites(currentMeal);
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
                     } else {
                         presenter.addToFavorites(currentMeal);
                     }

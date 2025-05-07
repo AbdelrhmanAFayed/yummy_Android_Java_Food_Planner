@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -56,13 +57,21 @@ public class AccountFragment extends Fragment {
         btn_logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Leaving Already ?")
+                        .setMessage("Are you sure you want to Log out ?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            FirebaseAuth.getInstance().signOut();
 
-                new Thread(() -> AppDataBase.getInstance(requireContext()).clearAllTables()).start();
+                            new Thread(() -> AppDataBase.getInstance(requireContext()).clearAllTables()).start();
 
-                Intent intent = new Intent(requireContext(), OnBoarding.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                            Intent intent = new Intent(requireContext(), OnBoarding.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
             }
         });
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,6 +106,15 @@ public class CalFragment extends Fragment implements MainContract.CalendarView ,
 
     @Override
     public void onDeleteMeal(Meal meal) {
-        presenter.removeMealFromDay(meal, selectedDayMillis);
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Remove from Plans")
+                .setMessage("Are you sure you want to remove \""
+                        + meal.getStrMeal() + "\" from this day ?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    presenter.removeMealFromDay(meal, selectedDayMillis);
+                })
+                .setNegativeButton("No", null)
+                .show();
+
     }
 }

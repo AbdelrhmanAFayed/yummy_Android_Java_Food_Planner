@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -84,6 +85,15 @@ public class FavFragment extends Fragment implements MainContract.FavoritesView,
 
     @Override
     public void onRemove(Meal meal) {
-        presenter.removeFavorite(meal);
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Remove from Favourites")
+                .setMessage("Are you sure you want to remove \""
+                        + meal.getStrMeal() + "\" from your favourites?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    presenter.removeFavorite(meal);
+                })
+                .setNegativeButton("No", null)
+                .show();
+
     }
 }
