@@ -250,34 +250,66 @@ public class DetailedMeal extends AppCompatActivity implements DetailedContract.
     }
 
     private void showDatePicker() {
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        long minDate = today.getTimeInMillis();
+        if ((FirebaseAuth.getInstance().getCurrentUser()).isAnonymous()) {
+            View dialogView = LayoutInflater.from(DetailedMeal.this).inflate(R.layout.boarding, null);
 
-        Calendar oneWeek = (Calendar) today.clone();
-        oneWeek.add(Calendar.DAY_OF_YEAR, 7);
-        long maxDate = oneWeek.getTimeInMillis();
+            AlertDialog dialog = new AlertDialog.Builder(DetailedMeal.this)
+                    .setView(dialogView)
+                    .setCancelable(true)
+                    .create();
 
-        DatePickerDialog dialog = new DatePickerDialog(
-                this,
-                com.google.android.material.R.style.Theme_Material3_DayNight_Dialog,
-                (view, year, month, dayOfMonth) -> {
-                    Calendar chosen = Calendar.getInstance();
-                    chosen.set(year, month, dayOfMonth, 0, 0, 0);
-                    chosen.set(Calendar.MILLISECOND, 0);
-                    presenter.planMeal(currentMeal, chosen.getTime());
-                },
-                today.get(Calendar.YEAR),
-                today.get(Calendar.MONTH),
-                today.get(Calendar.DAY_OF_MONTH)
-        );
+            Button loginButton = dialogView.findViewById(R.id.btn_login);
+            Button signUpButton = dialogView.findViewById(R.id.btn_signup);
 
-        dialog.getDatePicker().setMinDate(minDate);
-        dialog.getDatePicker().setMaxDate(maxDate);
+            loginButton.setOnClickListener(vi -> {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(DetailedMeal.this, OnBoarding.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                dialog.dismiss();
 
-        dialog.show();
+            });
+
+            signUpButton.setOnClickListener(vi -> {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(DetailedMeal.this, OnBoarding.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                dialog.dismiss();
+
+            });
+
+            dialog.show();
+        } else {
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+            long minDate = today.getTimeInMillis();
+
+            Calendar oneWeek = (Calendar) today.clone();
+            oneWeek.add(Calendar.DAY_OF_YEAR, 7);
+            long maxDate = oneWeek.getTimeInMillis();
+
+            DatePickerDialog dialog = new DatePickerDialog(
+                    this,
+                    com.google.android.material.R.style.Theme_Material3_DayNight_Dialog,
+                    (view, year, month, dayOfMonth) -> {
+                        Calendar chosen = Calendar.getInstance();
+                        chosen.set(year, month, dayOfMonth, 0, 0, 0);
+                        chosen.set(Calendar.MILLISECOND, 0);
+                        presenter.planMeal(currentMeal, chosen.getTime());
+                    },
+                    today.get(Calendar.YEAR),
+                    today.get(Calendar.MONTH),
+                    today.get(Calendar.DAY_OF_MONTH)
+            );
+
+            dialog.getDatePicker().setMinDate(minDate);
+            dialog.getDatePicker().setMaxDate(maxDate);
+
+            dialog.show();
+        }
     }
 }
